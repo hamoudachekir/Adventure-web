@@ -1,0 +1,38 @@
+{% block body %}
+    <style>
+        table, th, td, tbody {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+
+    </style>
+    <table>
+
+        <thead style="background: #1C2260">
+        <tr>
+            <th scope="col" style="color: white; width: 50px">Note</th>
+            <th scope="col" style="text-align: center;width: 350px;color: white">Nom</th>
+            <th scope="col" style="width: 300px;color: white">Commentaire</th>
+
+        </tr>
+        </thead>
+        Name/ Description text / Duration string /TargetObjective/RecommendedActivity
+
+
+        <tbody>
+        {% for  avi in avis %}
+            <tr>
+                <td>{{ avi.note }}</td>
+                <td>{{ avi.nom }}</td>
+                <td>{{ avi.commentaire }}</td>
+
+            </tr>
+        {% endfor %}
+
+
+
+        </tbody>
+
+    </table>
+{% endblock %}

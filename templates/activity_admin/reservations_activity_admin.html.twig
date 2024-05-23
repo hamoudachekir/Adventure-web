@@ -1,0 +1,242 @@
+{% extends "base_back.html.twig" %}
+
+{% block content %}
+	<main id="main" class="main">
+		<div id="flash-messages">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{message}}
+				</div>
+			{% endfor %}
+		</div>
+		<div class="pagetitle">
+			<h1>Activities reservations</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="#">Reservations</a>
+					</li>
+
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section">
+			<div
+				class="card-body pt-3">
+				<!-- Bordered Tabs -->
+				<ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
+
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview" aria-selected='true' role="tab">Pending</button>
+					</li>
+
+					<li class="nav-item" role="presentation">
+						<button class="nav-link " data-bs-toggle="tab" data-bs-target="#profile-edit" aria-selected='false' role="tab" tabindex="-1">Cancelled</button>
+					</li>
+
+					<li class="nav-item" role="presentation">
+						<button class="nav-link " data-bs-toggle="tab" data-bs-target="#profile-edi" aria-selected='false' role="tab" tabindex="-1">Confirmed</button>
+					</li>
+
+				</ul>
+				<div class="tab-content pt-2">
+
+					<div class="tab-pane fade profile-overview active show " id="profile-overview" role="tabpanel">
+
+						<div class="card">
+							<div class="card-body">
+
+								<h5 class="card-title">reservations</h5>
+								<p>All the pending reservations</p>
+								<!-- Table with stripped rows -->
+								<table class="table datatable">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>email</th>
+											<th>nbr tickets</th>
+											<th>activity id</th>
+											<th>date</th>
+											<th>actions</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										{% for reservation in pending %}
+											<tr>
+												<td>{{ reservation.id }}</td>
+												<td>{{ reservation.userEmail }}</td>
+												<td>{{ reservation.nbrTickets }}</td>
+												<td>{{ reservation.activity.id }}</td>
+												<td>{{ reservation.date|date('y-m-d') }}</td>
+												<td>
+													<a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+													<a href="{{ path('app_reservation_show', {'id': reservation.id}) }} ">show</a>
+													<a href="{{ path('app_reservation_delete', {'id': reservation.id}) }} ">delete</a>
+													<a href="{{ path('app_reservation_update_status', {'id': reservation.id,'status': 'canceled'}) }} ">cancel</a>
+												</td>
+												{#<td>
+																																																																												<a href="{{ path('activity_show', {'id': activity.id}) }}">show</a>
+																																																																												<a href="{{ path('activity_edit', {'id': activity.id}) }} ">edit</a>
+																																																																												<a href="{{ path('activity_delete', {'id': activity.id}) }} ">delete</a>
+																																																																											</td>#}
+											</tr>
+										{% else %}
+											<tr>
+												<td colspan="10">no records found</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+								<!-- End Table with stripped rows -->
+
+							</div>
+						</div>
+					</div>
+
+
+					<div class="tab-pane fade profile-edit pt-3" id="profile-edit" role="tabpanel">
+
+						<div class="card">
+							<div class="card-body">
+
+								<h5 class="card-title">reservations</h5>
+								<p>All the canceled reservations</p>
+
+								<!-- Table with stripped rows -->
+								<table class="table datatable">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>email</th>
+											<th>nbr tickets</th>
+											<th>activity id</th>
+											<th>date</th>
+											<th>actions</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										{% for reservation in cancelled %}
+											<tr>
+												<td>{{ reservation.id }}</td>
+												<td>{{ reservation.userEmail }}</td>
+												<td>{{ reservation.nbrTickets }}</td>
+												<td>{{ reservation.activity.id }}</td>
+												<td>{{ reservation.date|date('y-m-d') }}</td>
+												<td>
+													<a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+													<a href="{{ path('app_reservation_show', {'id': reservation.id}) }} ">show</a>
+													<a href="{{ path('app_reservation_delete', {'id': reservation.id}) }} ">delete</a>
+												</td>
+												{#<td>
+																																																																														<a href="{{ path('activity_show', {'id': activity.id}) }}">show</a>
+																																																																														<a href="{{ path('activity_edit', {'id': activity.id}) }} ">edit</a>
+																																																																														<a href="{{ path('activity_delete', {'id': activity.id}) }} ">delete</a>
+																																																																													</td>#}
+											</tr>
+										{% else %}
+											<tr>
+												<td colspan="10">no records found</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+								<!-- End Table with stripped rows -->
+
+							</div>
+						</div>
+					</div>
+					
+					<div class="tab-pane fade profile-edit pt-3" id="profile-edi" role="tabpanel">
+
+						<div class="card">
+							<div class="card-body">
+
+								<h5 class="card-title">reservations</h5>
+								<p>All the canceled reservations</p>
+
+								<!-- Table with stripped rows -->
+								<table class="table datatable">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>email</th>
+											<th>nbr tickets</th>
+											<th>activity id</th>
+											<th>date</th>
+											<th>actions</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										{% for reservation in confirmed %}
+											<tr>
+												<td>{{ reservation.id }}</td>
+												<td>{{ reservation.userEmail }}</td>
+												<td>{{ reservation.nbrTickets }}</td>
+												<td>{{ reservation.activity.id }}</td>
+												<td>{{ reservation.date|date('y-m-d') }}</td>
+												<td>
+													<a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+													<a href="{{ path('app_reservation_show', {'id': reservation.id}) }} ">show</a>
+													<a href="{{ path('app_reservation_delete', {'id': reservation.id}) }} ">delete</a>
+												</td>
+												{#<td>
+																																																																														<a href="{{ path('activity_show', {'id': activity.id}) }}">show</a>
+																																																																														<a href="{{ path('activity_edit', {'id': activity.id}) }} ">edit</a>
+																																																																														<a href="{{ path('activity_delete', {'id': activity.id}) }} ">delete</a>
+																																																																													</td>#}
+											</tr>
+										{% else %}
+											<tr>
+												<td colspan="10">no records found</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+								<!-- End Table with stripped rows -->
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+	</section>
+
+</main>
+<!-- End #main -->{% endblock %}{% block script %}
+{{ parent() }}
+<script>
+	// Hide flash messages after 2 seconds
+document.addEventListener('DOMContentLoaded', function () {
+setTimeout(function () {
+var flashMessages = document.getElementById('flash-messages');
+if (flashMessages) {
+flashMessages.innerHTML = '';
+}
+}, 3000);
+});
+
+document.addEventListener('DOMContentLoaded', function () { // Get the form element
+var form = document.getElementById('AddForm');
+
+// Add event listener for form submission
+form.addEventListener('submit', function (event) { // Show confirmation dialog
+var confirmation = confirm('Are you sure you want to submit this form?');
+
+// If user cancels, prevent form submission
+if (! confirmation) {
+event.preventDefault();
+}
+});
+});
+</script>{% endblock %}

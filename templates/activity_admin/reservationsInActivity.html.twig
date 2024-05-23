@@ -1,0 +1,116 @@
+{% extends "base_back.html.twig" %}
+
+{% block content %}
+	<main id="main" class="main">
+		<div id="flash-messages">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{message}}
+				</div>
+			{% endfor %}
+		</div>
+		<div class="pagetitle">
+			<h1>Activities reservations</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href={{path('admin_activities')}}>Activities</a>
+					</li>
+					<li class="breadcrumb-item">Details</li>
+                    <li class="breadcrumb-item">Reservations</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section">
+
+
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">reservations</h5>
+					<p>reservations of this activity</p>
+
+					<!-- Table with stripped rows -->
+					<table class="table datatable">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>email</th>
+								<th>nbr tickets</th>
+								<th>activity id</th>
+								<th>status</th>
+								<th>date</th>
+                                <th>actions</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							{% for reservation in reservations %}
+								<tr>
+									<td>{{ reservation.id }}</td>
+									<td>{{ reservation.userEmail }}</td>
+									<td>{{ reservation.nbrTickets }}</td>
+									<td>{{ reservation.activity.id }}</td>
+									<td>{{ reservation.status }}</td>
+									<td>{{ reservation.date|date('y-m-d') }}</td>
+                                    <td>
+										<a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+										<a href="{{ path('app_reservation_show', {'id': reservation.id}) }} ">show</a> 
+										<a href="{{ path('app_reservation_delete', {'id': reservation.id}) }} ">delete</a>
+									</td>
+									{#<td>
+																																										<a href="{{ path('activity_show', {'id': activity.id}) }}">show</a>
+																																										<a href="{{ path('activity_edit', {'id': activity.id}) }} ">edit</a>
+																																										<a href="{{ path('activity_delete', {'id': activity.id}) }} ">delete</a>
+																																									</td>#}
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="10">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<!-- End Table with stripped rows -->
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+	</section>
+
+</main>
+<!-- End #main -->
+{% endblock %}
+
+{% block script %}
+{{ parent() }}
+<script>
+	// Hide flash messages after 2 seconds
+document.addEventListener('DOMContentLoaded', function () {
+setTimeout(function () {
+var flashMessages = document.getElementById('flash-messages');
+if (flashMessages) {
+flashMessages.innerHTML = '';
+}
+}, 3000);
+});
+
+document.addEventListener('DOMContentLoaded', function () { // Get the form element
+var form = document.getElementById('AddForm');
+
+// Add event listener for form submission
+form.addEventListener('submit', function (event) { // Show confirmation dialog
+var confirmation = confirm('Are you sure you want to submit this form?');
+
+// If user cancels, prevent form submission
+if (! confirmation) {
+event.preventDefault();
+}
+});
+});
+</script>{% endblock %}

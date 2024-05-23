@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+{% block title %}WishList{% endblock %}
+{% block content %}
+	<!--====== Start Breadcrumb Section ======-->
+	<section class="page-banner overlay pt-170 pb-220 bg_cover" style="background-image: url('https://images.unsplash.com/photo-1708589413831-8c24638bc0db?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZmF2b3VyaXRlJTIwYWN0aXZpdGllc3xlbnwwfHwwfHx8MA%3D%3D'); margin-bottom:100px;">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-10">
+					<div class="page-banner-content text-center text-white">
+						<h1 class="page-title">Your Favourite activities</h1>
+						<ul class="breadcrumb-link text-white">
+							<li>
+								<a href="index.html">Home</a>
+							</li>
+							<li>
+								<a href="{{path('activities')}}">Activities</a>
+							</li>
+							<li class="active">Favourites</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--====== End Breadcrumb Section ======-->
+
+	<!--====== Start Places Section ======-->
+	<section class="places-section pb-100">
+		<div class="container">
+			<div class="row justify-content-center">
+				{% for fav in favActivities %}
+					<div
+						class="col-xl-4 col-md-6 col-sm-12 places-column">
+						<!--=== Single Place Item ===-->
+						<div class="single-place-item mb-60 wow fadeInUp">
+							<div class="place-img">
+								{% if fav.activity.activityImages|length > 0 %}
+									{% if fav.activity.activityImages[0].url starts with 'https' %}
+										<img src="{{ fav.activity.activityImages[0].url }}" alt="Place Image" style="width: 410px; height: 280px;">
+									{% else %}
+										<img src="{{ asset('assets/uploads/activities/' ~ fav.activity.activityImages[0].url) }}" alt="Place Image" style="width: 410px; height: 280px;">
+									{% endif %}
+								{% else %}
+									<img src="{{ asset('assets/images/noImage.png') }}" alt="Place Image" style="width: 410px; height: 280px;">
+								{% endif %}
+
+
+							</div>
+							<div class="place-content">
+								<div class="info">
+									<ul class="ratings">
+										<li>
+											<i class="fas fa-star"></i>
+										</li>
+										<li>
+											<i class="fas fa-star"></i>
+										</li>
+										<li>
+											<i class="fas fa-star"></i>
+										</li>
+										<li>
+											<i class="fas fa-star"></i>
+										</li>
+										<li>
+											<i class="fas fa-star"></i>
+										</li>
+										<li>
+											<a href="#">(4.9)</a>
+										</li>
+									</ul>
+									<h4 class="title">
+										<a href="{{ path('activityController_details', {'id': fav.activity.id}) }}">{{fav.activity.name}}</a>
+									</h4>
+									<p class="location">
+										<i class="far fa-map-marker-alt"></i>
+										{{fav.activity.location}}</p>
+									<p class="price">
+										<i class="fas fa-usd-circle"></i>Price<span class="currency">$</span>
+										{{fav.activity.price}}</p>
+									<div class="meta">
+										<span>
+											<i class="far fa-clock"></i>
+											{{fav.activity.duration}}
+											Hours</span>
+										<span>
+											<i class="far fa-user"></i>
+											{{fav.activity.maxGuests}}</span>
+										<span>
+											<a href="{{ path('activityController_details', {'id': fav.activity.id}) }}">Details<i class="far fa-long-arrow-right"></i>
+											</a>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<h2>No favourites yet</h2>
+					<a href="{{path('activities')}}" style="color: blue; text-decoration: underline;">Add activities to your wishlist</a>
+				{% endfor %}
+			</div>
+
+		</div>
+	</section>
+	<!--====== End Places Section ======-->
+	{#<!--====== Start Gallery Section ======-->
+					        <section class="gallery-section mbm-150">
+					            <div class="container-fluid">
+					                <div class="slider-active-5-item wow fadeInUp">
+					                    <!--=== Single Gallery Item ===-->
+					                    <div class="single-gallery-item">
+					                        <div class="gallery-img">
+					                            <img src="assets/images/gallery/gl-1.jpg" alt="Gallery Image">
+					                            <div class="hover-overlay">
+					                                <a href="assets/images/gallery/gl-1.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+					                            </div>
+					                        </div>
+					                    </div>
+					                    <!--=== Single Gallery Item ===-->
+					                    <div class="single-gallery-item">
+					                        <div class="gallery-img">
+					                            <img src="assets/images/gallery/gl-2.jpg" alt="Gallery Image">
+					                            <div class="hover-overlay">
+					                                <a href="assets/images/gallery/gl-2.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+					                            </div>
+					                        </div>
+					                    </div>
+					                    <!--=== Single Gallery Item ===-->
+					                    <div class="single-gallery-item">
+					                        <div class="gallery-img">
+					                            <img src="assets/images/gallery/gl-3.jpg" alt="Gallery Image">
+					                            <div class="hover-overlay">
+					                                <a href="assets/images/gallery/gl-3.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+					                            </div>
+					                        </div>
+					                    </div>
+					                    <!--=== Single Gallery Item ===-->
+					                    <div class="single-gallery-item">
+					                        <div class="gallery-img">
+					                            <img src="assets/images/gallery/gl-4.jpg" alt="Gallery Image">
+					                            <div class="hover-overlay">
+					                                <a href="assets/images/gallery/gl-4.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+					                            </div>
+					                        </div>
+					                    </div>
+					                    <!--=== Single Gallery Item ===-->
+					                    <div class="single-gallery-item">
+					                        <div class="gallery-img">
+					                            <img src="assets/images/gallery/gl-5.jpg" alt="Gallery Image">
+					                            <div class="hover-overlay">
+					                                <a href="assets/images/gallery/gl-5.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+					                            </div>
+					                        </div>
+					                    </div>
+					                    <!--=== Single Gallery Item ===-->
+					                    <div class="single-gallery-item">
+					                        <div class="gallery-img">
+					                            <img src="assets/images/gallery/gl-3.jpg" alt="Gallery Image">
+					                            <div class="hover-overlay">
+					                                <a href="assets/images/gallery/gl-3.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+					                            </div>
+					                        </div>
+					                    </div>
+					                </div>
+					            </div>
+					        </section><!--====== End Gallery Section ======-->#}
+{% endblock %}

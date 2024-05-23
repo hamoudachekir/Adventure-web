@@ -1,0 +1,50 @@
+{% extends "base_back.html.twig" %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+    <h1>Blog</h1>
+<main id="main" class="main">    <table class="table">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ blog.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ blog.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ blog.description }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ blog.image }}" alt="Post Image" style="max-width: 100px; max-height: 100px;"></td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ blog.contenu }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ blog.updatedAt ? blog.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <div>
+            <a href="{{ path('admin_blog_index') }}" class="btn btn-primary">Back to List</a>
+            <a href="{{ path('app_blog_edit', {'id': blog.id}) }}" class="btn btn-secondary">Edit</a>
+        </div>
+
+
+    {{ include('blog/_delete_form.html.twig') }}
+    </table>
+</main>
+{% endblock %}

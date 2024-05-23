@@ -1,0 +1,8 @@
+controllers:
+    resource: ../../src/Controller/
+    type: annotation
+    exclude: { path: '^/assets/' }
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation

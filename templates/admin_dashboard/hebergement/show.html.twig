@@ -1,0 +1,65 @@
+{% extends "base_back.html.twig" %}
+
+{% block content %}
+<main id="main" class="main">
+    <div id="flash-messages">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="pagetitle">
+        <nav style="--bs-breadcrumb-divider: '/';">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a  href="">Home</a></li>
+                <li class="breadcrumb-item">Accomodation</li>
+                <li class="breadcrumb-item active">Show</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- End Page Title -->
+    <!--Section start -->
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Accomodation</h5>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">ID :</h6>
+                <p class="card-text">{{ hebergement.id }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">Name :</h6>
+                <p class="card-text">{{ hebergement.nom }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">Description :</h6>
+                <p class="card-text">{{ hebergement.description }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">Adult price :</h6>
+                <p class="card-text">{{ hebergement.prixAdulte }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">Youth price :</h6>
+                <p class="card-text">{{ hebergement.prixJeune }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">Child price :</h6>
+                <p class="card-text">{{ hebergement.prixEnfant }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">Address :</h6>
+                <p class="card-text">{{ hebergement.adresse }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">Type :</h6>
+                <p class="card-text">{{ hebergement.TypeHebergement.nom }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">HostService :</h6>
+                <p class="card-text">{{ hebergement.HostService.nom  }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">Place number :</h6>
+                <p class="card-text">{{ hebergement.nbrPlace }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">Image :</h6>
+                <p class="card-text">{{ hebergement.image }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">CreatedAt :</h6>
+                <p class="card-text">{{ hebergement.createdAt ? hebergement.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+                <h6 class="card-subtitle mb-2 text-dark-emphasis">UpdatedAt :</h6>
+                <p class="card-text">{{ hebergement.updatedAt ? hebergement.updatedAt|date('Y-m-d H:i:s') : ''}}</p>
+                <div class="btn-group,card-text" role="group" aria-label="Basic mixed styles example">
+                    <a href="{{ path('app_hebergement_edit', {'id': hebergement.id}) }}" class="btn btn-outline-success">Edit</a>
+                    <a href="{{ path('app_hebergement_delete', {'id': hebergement.id}) }}" class="btn btn-outline-danger">Delete</a>
+                    <a href="{{ path('hebergement.pdf', {'id': hebergement.id}) }}" class="btn btn-outline-warning">pdf</a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Section end -->
+</main>
+    <!-- End #main -->
+{% endblock %}

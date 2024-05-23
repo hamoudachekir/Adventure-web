@@ -1,0 +1,6 @@
+# config/packages/knp_snappy.yaml
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary: 'C:\Users\mouda\Desktop\wkhtmltopdf\bin\wkhtmltopdf.exe'
+        options:    []

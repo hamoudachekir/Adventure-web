@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Reset Password{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('/assets/images/reset/reset.jpg'); /* Path to your background image */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .reset-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Adjust the opacity as needed */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px; /* Same as before */
+            width: 100%;
+            text-align: center;
+        }
+        .reset-container h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .reset-container small {
+            display: block;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .reset-container .btn {
+            background-color: #0077cc;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .reset-container .btn:hover {
+            background-color: #005fa3;
+        }
+        .reset-container .alert {
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reset-container">
+        {% for flash_error in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+        <h1>Reset your password</h1>
+
+        {{ form_start(requestForm) }}
+            {{ form_row(requestForm.email) }}
+            <div>
+                <small>
+                    Enter your email address, and we will send you a
+                    link to reset your password.
+                </small>
+            </div>
+
+            <button class="btn">Send password reset email</button>
+        {{ form_end(requestForm) }}
+    </div>
+</body>
+</html>

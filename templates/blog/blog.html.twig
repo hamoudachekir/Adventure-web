@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blogs{% endblock %}
+
+{% block content %}
+    <!-- Start Breadcrumb Section -->
+    <section class="page-banner overlay pt-170 pb-170 bg_cover" style="background-image: url('{{ asset('assets/images/bg/36498346_2088910211166375_6004042874520338432_n.jpg') }}');">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="page-banner-content text-center text-white">
+                        <h1 class="page-title">Blog List</h1>
+                        <ul class="breadcrumb-link text-white">
+                            <!<li><a href="index.html">Home</a></li>!>
+                            <li class="active">Blog List</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Breadcrumb Section -->
+
+    <!-- Start Blog Section -->
+    <section class="blog-list-section pt-100 pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8">
+                    <!-- Blog List Wrapper -->
+                    <div class="blog-list-wrapper">
+                        <!-- Single Blog Post -->
+                        {% for blog in blogs %}
+                            <div class="single-blog-post-four mb-30 wow fadeInDown">
+                                <div class="post-thumbnail">
+                                    <img src="{{ blog.image }}" alt="Post Image">
+                                </div>
+                                <div class="entry-content">
+                                    <div class="post-meta">
+                                        <span><i class="far fa-calendar-alt"></i> {{ blog.createdAt|date('Y-m-d') }}</span>
+                                    </div>
+                                    <h3 class="title"><a href="{{ path('app_blog_show', {'id': blog.id}) }}">{{ blog.titre }}</a></h3>
+                                    <h6 class="author"><i class="far fa-user"></i> Hamouda Chekir</h6>
+                                    <a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="main-btn filled-btn">Read More <i class="fas fa-paper-plane"></i></a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Pagination -->
+                    <ul class="gowilds-pagination wow fadeInDown mt-60 mb-30">
+                        <li>{{ knp_pagination_render(blogs) }}</li>
+                    </ul>
+                </div>
+                <div class="col-xl-4">
+                    <div class="sidebar-widget-area">
+                        <!-- Dynamic Search Widget -->
+                        <div class="sidebar-widget search-widget mb-30 wow fadeInUp">
+                            <h4 class="widget-title">Search</h4>
+                            <div class="container">
+                                <h3>Chercher votre Blog</h3>
+                                <hr>
+                                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                                    <div class="input-group">
+                                        <input id="search-input" type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- End Dynamic Search Widget -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Blog Section -->
+
+    <!-- JavaScript for Dynamic Search -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#search-input").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".single-blog-post-four").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+{% endblock %}

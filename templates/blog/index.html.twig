@@ -1,0 +1,56 @@
+{% block title %}Blog index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="my-4">Blog Index</h1>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Contenu</th>
+                        <th>CreatedAt</th>
+                        <th>UpdatedAt</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for blog in blogs %}
+                        <tr>
+                            <td>{{ blog.id }}</td>
+                            <td>{{ blog.titre }}</td>
+                            <td>{{ blog.description }}</td>
+                            <td>
+                                <img src="{{ blog.image }}" alt="{{ blog.titre }}" style="max-width: 100px; max-height: 100px;">
+                            </td>
+                            <td>{{ blog.contenu }}</td>
+                            <td>{{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ blog.updatedAt ? blog.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>
+                                <a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="btn btn-info btn-sm">Show</a>
+                                <a href="{{ path('app_blog_edit', {'id': blog.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="{{ path('app_blog_delete', {'id': blog.id}) }}" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">No records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{{ path('app_blog_new') }}" class="btn btn-success">Create New</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

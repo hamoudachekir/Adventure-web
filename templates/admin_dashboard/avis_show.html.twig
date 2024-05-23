@@ -1,0 +1,54 @@
+{% extends "base_back.html.twig" %}
+
+{% block title %}Avis{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1 class="mt-4">Avis</h1>
+        <main id="main" class="main">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Détails de l'Avis</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>Id</th>
+                                    <td>{{ avi.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Note</th>
+                                    <td>{{ avi.note }}</td>
+                                </tr>
+                                <tr>
+                                    <th>CreatedAt</th>
+                                    <td>{{ avi.createdAt ? avi.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>UpdatedAt</th>
+                                    <td>{{ avi.updatedAt ? avi.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Commentaire</th>
+                                    <td>{{ avi.commentaire }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nom</th>
+                                    <td>{{ avi.nom }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ path('app_avis_index') }}" class="btn btn-secondary">Retour à la liste</a>
+                            <a href="{{ path('app_avis_delete', {'id': avi.id}) }}" class="btn btn-secondary">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

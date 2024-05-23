@@ -1,0 +1,132 @@
+{% extends "admin_dashboard/base_back.html.twig" %}
+{% block content %}
+	<main id="main" class="main">
+
+		<div class="pagetitle">
+			<h1>Products</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="#">Products</a>
+					</li>
+
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Products</h5>
+					<p>List of all the Products</p>
+
+					<!-- Table with stripped rows -->
+					<table class="table datatable">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Image</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Price</th>
+								<th>category</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for product in products %}
+								<tr>
+									<td>{{ product.id }}</td>
+									<td>
+											<img src="{{ asset('uploads/' ~ product.image) }}" alt="Post Image" style="height: 100px; width: 100px;">
+										</td>
+									<td>{{ product.name }}</td>
+									<td>{{ product.description }}</td>
+									<td>{{ product.price }}</td>
+									<td>{{ product.category.name }}</td>
+									<td>
+										<a href="{{ path('admin_product_show',{'id':product.id})}}">show</a>
+										<a href="{{ path('admin_product_edit',{'id':product.id})}}">edit</a>
+										<a href="{{ path('app_product_delete',{'id':product.id})}}">{{ include('product/_delete_form.html.twig') }}</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="10">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<!-- End Table with stripped rows -->
+
+				</div>
+			</div>
+			<div class="col-lg-6">
+
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Add a Product</h5>
+						<form id="AddForm" method="POST" enctype="multipart/form-data" novalidate>
+							{{ form_start(form,{'method': 'POST'}) }}
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">Name</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form.name) }}
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">Description</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form.description) }}
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">price</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form.price) }}
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">quantity</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.quantity, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form.quantity) }}
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">category</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form.category) }}
+								</div>
+							</div>
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">image</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(form.image) }}
+								</div>
+							</div>
+
+
+							<div class="row mb-3">
+								<div class="col-sm-10">
+									<button type="submit"  class="btn btn-primary">{{ button_label|default('Save') }}</button>
+								</div>
+							</div>
+							{{ form_end(form) }}
+						</form>
+						<a href="{{ path('app_admin_cat_index')}}" class="btn btn-primary">add category</a>
+					</div>
+				</div>	
+
+			</div>
+		</section>
+
+	</main>
+	<!-- End #main -->
+{% endblock %}
+

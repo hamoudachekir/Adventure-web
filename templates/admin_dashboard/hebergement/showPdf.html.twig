@@ -1,0 +1,32 @@
+{% extends "base_back.html.twig" %}
+{% block content %}
+<section>
+    <h5 >Accomodation</h5>
+    <h6>ID :</h6>
+    <p>{{ hebergement.id }}</p>
+    <h6>Name :</h6>
+    <p>{{ hebergement.nom }}</p>
+    <h6>Description :</h6>
+    <p>{{ hebergement.description }}</p>
+    <h6>Adult price :</h6>
+    <p >{{ hebergement.prixAdulte }}</p>
+    <h6>Youth price :</h6>
+    <p>{{ hebergement.prixJeune }}</p>
+    <h6>Child price :</h6>
+    <p >{{ hebergement.prixEnfant }}</p>
+    <h6>Address :</h6>
+    <p>{{ hebergement.adresse }}</p>
+    <h6>Type :</h6>
+    <p>{{ hebergement.TypeHebergement.nom }}</p>
+    <h6>HostService :</h6>
+    <p>{{ hebergement.HostService.nom  }}</p>
+    <h6>Place number :</h6>
+    <p>{{ hebergement.nbrPlace }}</p>
+    <h6>Image :</h6>
+    <p>{{ hebergement.image }}</p>
+    <h6>CreatedAt :</h6>
+    <p>{{ hebergement.createdAt ? hebergement.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+    <h6>UpdatedAt :</h6>
+    <p>{{ hebergement.updatedAt ? hebergement.updatedAt|date('Y-m-d H:i:s') : ''}}</p>
+</section>
+{% endblock %}

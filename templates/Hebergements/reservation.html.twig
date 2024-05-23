@@ -1,0 +1,201 @@
+{% extends 'base.html.twig' %}
+{% block title %}Activities details{% endblock %}
+{% block content %}
+    <!--====== Start Place Details Section ======-->
+    <section class="place-details-section">
+        <div class="container">
+            <!--=== Tour Details Wrapper ===-->
+            <div class="tour-details-wrapper pt-80">
+                <!--=== Tour Title Wrapper ===-->
+                <div class="tour-title-wrapper pb-30 wow fadeInUp">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="tour-title mb-20">
+                                <h3 class="title">{{ hebergement.nom }}</h3>
+                                <p><i class="far fa-map-marker-alt"></i>{{ hebergement.adresse }}</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="tour-widget-info">
+                                <div class="info-box mb-20">
+                                    <div class="icon">
+                                        <i class="fal fa-box-usd"></i>
+                                    </div>
+                                    <div class="info">
+                                        <h4><span>Adult</span>{{ hebergement.prixAdulte }} TND</h4>
+                                    </div>
+                                </div>
+                                <div class="info-box mb-20">
+                                    <div class="icon">
+                                        <i class="fal fa-box-usd"></i>
+                                    </div>
+                                    <div class="info">
+                                        <h4><span>Youth</span>{{ hebergement.prixJeune }} TND</h4>
+                                    </div>
+                                </div>
+                                <div class="info-box mb-20">
+                                    <div class="icon">
+                                        <i class="fal fa-box-usd"></i>
+                                    </div>
+                                    <div class="info">
+                                        <h4><span>Child</span>{{ hebergement.prixEnfant }} TND</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--=== Tour Area Nav ===-->
+                <div class="tour-area-nav pt-20 pb-20 wow fadeInUp">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="share-nav">
+                                <a href="#">Share<i class="far fa-share"></i></a>
+                                <a href="#">Reviews<i class="far fa-share"></i></a>
+                                <a href="#">Whislist<i class="far fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-8">
+                        <!--=== Place Content Wrap ===-->
+                        <div class="place-content-wrap pt-45 wow fadeInUp">
+                            <h3 class="title">Explore Accomodation</h3>
+                            <p>{{ hebergement.description }}</p>
+                            <p>{{ hebergement.TypeHebergement.description }}</p>
+                            <p>{{ hebergement.HostService.description }}</p>
+
+                            <div class="row align-items-lg-center">
+                                <div class="col-lg-5">
+                                    <ul class="check-list">
+                                        <li>  <h4>Rules</h4></li>
+                                        <li><i class="fal fa-clock"></i>Entry : 2:00 PM</li>
+                                        <li><i class="fal fa-clock"></i>Exit : 12:00 PM</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-7">
+                                    <img src="{{asset('hebergements/' ~ hebergement.image)}}" class="mb-20 w-100"  style="width: 280px; height: 410px; object-fit: cover;"alt="{{ hebergement.nom }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--=== Releted Tour Place ===-->
+                        <div class="related-tour-place wow fadeInUp">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="section-title mb-35">
+                                        <h3 class="my-4">Related accomodations</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="recent-place-slider">
+                                <!--=== Single Place Item ===-->
+                                {% for relatedheb in hebergements %}
+                                <div class="single-place-item mb-60 wow fadeInUp">
+                                    <div class="place-img">
+                                        <img src="{{asset('hebergements/' ~ relatedheb.image)}}" alt="{{ relatedheb.nom }}"  style="width: 410px; height: 280px; object-fit: cover;"/>
+                                    </div>
+                                    <div class="place-content">
+                                        <div class="info">
+                                            <h4 class="title"><a href="{{ path('app_reservation_hebergement_new', {'id': relatedheb.id}) }}">{{ relatedheb.nom }}</a></h4>
+                                            <p class="location"><i class="far fa-map-marker-alt"></i>{{ relatedheb.adresse }}</p>
+                                            <p><span><i class="far fa-user"></i>{{ relatedheb.nbrplace }}</span> </p>
+                                            <div class="meta">
+                                                <p class="price">
+                                                    <span class="currency">{{ relatedheb.TypeHebergement.nom }}</span>
+                                                    <span class="currency">{{ relatedheb.HostService.nom }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <!--=== Sidebar Widget Area ===-->
+                        <div class="sidebar-widget-area pt-60 pl-lg-30">
+                            <!--=== Booking Widget ===-->
+                            <div class="sidebar-widget booking-form-widget wow fadeInUp mb-40">
+                                <h4 class="widget-title">Booking here</h4>
+                                {% if form is defined %}
+                                    {{ form_start(form, {'attr': {'class': 'sidebar-booking-form'}}) }}
+
+                                    <div class="booking-date-time mb-20">
+                                        <div class="booking-item">
+                                            {{ form_label(form.dateDeb, 'Check In Date') }}
+                                            <div class="bk-item booking-time">
+                                                <i class="far fa-calendar-alt"></i>
+                                                {{ form_widget(form.dateDeb,{'attr': {'class': 'datepicker'}}) }}
+                                            </div>
+                                        </div>
+                                        <div class="booking-item">
+                                            {{ form_label(form.dateFin, 'Check Out Date') }}
+                                            <div class="bk-item booking-time">
+                                                <i class="far fa-calendar-alt"></i>
+                                                {{ form_widget(form.dateFin,{'attr': {'class': 'datepicker'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="booking-guest-box mb-20">
+                                        <h6 class="mb-20">Tickets</h6>
+                                        <div class="booking-item">
+                                            {{ form_label(form.nbrAdulte, 'Adult (18+ years)') }}
+                                            <div class="bk-item booking-user">
+                                                <i class="far fa-user"></i>
+                                                {{ form_widget(form.nbrAdulte,{'attr': {'class': 'list-group-numbered'}}) }}
+                                            </div>
+                                        </div>
+                                        <div class="booking-item">
+                                            {{ form_label(form.nbrJeune, 'Youth (13-17 years)') }}
+                                            <div class="bk-item booking-user">
+                                                <i class="far fa-user"></i>
+                                                {{ form_widget(form.nbrJeune,{'attr': {'class': 'list-group-numbered'}}) }}
+                                            </div>
+                                        </div>
+                                        <div class="booking-item">
+                                            {{ form_label(form.nbrEnfant, 'Child (0-12 years)') }}
+                                            <div class="bk-item booking-user">
+                                                <i class="far fa-user"></i>
+                                                {{ form_widget(form.nbrEnfant,{'attr': {'class': 'list-group-numbered'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="booking-extra mb-15 wow fadeInUp">
+                                        <h6 class="mb-10">Additional Services</h6>
+                                        <div class="extra">
+                                            <i class="fas fa-check-circle"></i>Service Per Booking <span><span class="currency">TND</span>5</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="submit-button">
+                                        <div class="submit-button">
+                                            <button class="main-btn primary-btn">Book now<i class="far fa-paper-plane"></i></button>
+                                        </div>
+
+                                    </div>
+                                    {{ form_end(form) }}
+                                {% endif %}
+                            </div>
+                            <!--=== Booking Info Widget ===-->
+                            <div class="sidebar-widget booking-info-widget wow fadeInUp mb-40">
+                                <h4 class="widget-title">Information</h4>
+                                <ul class="info-list">
+                                    <li><span><i class="far fa-user-circle"></i>Max Guests<span>{{ hebergement.nbrPlace }}</span></span></li>
+                                    <li><span><i class="far fa-map-marker-alt"></i>Location<span>{{ hebergement.adresse }}</span></span></li>
+                                    <li><span><i class="far fa-globe"></i>Language<span>English</span></span></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!--====== End Place Details Section ======-->
+
+{% endblock %}

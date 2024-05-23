@@ -1,0 +1,103 @@
+{% extends "base_back.html.twig" %}
+
+{% block content %}
+	<main id="main" class="main">
+		<div id="flash-messages">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{message}}
+				</div>
+			{% endfor %}
+		</div>
+		<div class="pagetitle">
+			<h1>Activities comments</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href={{path('admin_activities')}}>Activities</a>
+					</li>
+					<li class="breadcrumb-item">details</li>
+                    <li class="breadcrumb-item">comments</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Comments</h5>
+					<p>comments in this activity</p>
+
+					<!-- Table with stripped rows -->
+					<table class="table datatable">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>email</th>
+								<th>author</th>
+								<th>content</th>
+								<th>rating</th>
+								<th>actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for comment in comments %}
+								<tr>
+									<td>{{ comment.id }}</td>
+									<td>{{ comment.email }}</td>
+									<td>{{ comment.name }}</td>
+									<td>{{ comment.text }}</td>
+									<td>{{ comment.rating }}</td>
+
+									<td>
+										<a href="{{ path('activity_comment_show', {'id': comment.id}) }}">show</a>
+										<a href="{{ path('activity_comment_delete', {'id': comment.id}) }}">delete</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="10">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<!-- End Table with stripped rows -->
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+	</section>
+
+</main>
+<!-- End #main -->{% endblock %}{% block script %}
+{{ parent() }}
+<script>
+	// Hide flash messages after 2 seconds
+document.addEventListener('DOMContentLoaded', function () {
+setTimeout(function () {
+var flashMessages = document.getElementById('flash-messages');
+if (flashMessages) {
+flashMessages.innerHTML = '';
+}
+}, 3000);
+});
+
+document.addEventListener('DOMContentLoaded', function () { // Get the form element
+var form = document.getElementById('AddForm');
+
+// Add event listener for form submission
+form.addEventListener('submit', function (event) { // Show confirmation dialog
+var confirmation = confirm('Are you sure you want to submit this form?');
+
+// If user cancels, prevent form submission
+if (! confirmation) {
+event.preventDefault();
+}
+});
+});
+</script>{% endblock %}

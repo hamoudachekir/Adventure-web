@@ -1,0 +1,118 @@
+{% extends "base_back.html.twig" %}
+
+{% block content %}
+    <main id="main" class="main">
+        <div id="flash-messages">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{message}}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagetitle">
+            <nav style="--bs-breadcrumb-divider: '/';">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a  href="">Home</a></li>
+                    <li class="breadcrumb-item">Accomodation</li>
+                    <li class="breadcrumb-item active">Edit</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End Page Title -->
+        <section class="section">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Accomodation</h5>
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                    <div class="row mb-3">
+                        {{ form_label(form.nom, 'Name:', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <span class="error-message text-danger">{{ form_errors(form.nom) }}</span>
+                    </div>
+
+                    <div class="row mb-3">
+                        {{ form_label(form.description, 'Description:', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <span class="error-message text-danger">{{ form_errors(form.description) }}</span>
+                    </div>
+
+                    <div class="row mb-3">
+                        {{ form_label(form.prixAdulte, 'Adult price:', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.prixAdulte, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <span class="error-message text-danger">{{ form_errors(form.prixAdulte) }}</span>
+                    </div>
+
+                    <div class="row mb-3">
+                        {{ form_label(form.prixJeune, 'Youth price:', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.prixJeune, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <span class="error-message text-danger">{{ form_errors(form.prixJeune) }}</span>
+                    </div>
+                    <div class="row mb-3">
+                        {{ form_label(form.prixEnfant, 'Child price:', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.prixEnfant, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <span class="error-message text-danger">{{ form_errors(form.prixEnfant) }}</span>
+                    </div>
+                    <div class="row mb-3">
+                        {{ form_label(form.nbrPlace, 'Number of places:', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.nbrPlace, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <span class="error-message text-danger">{{ form_errors(form.nbrPlace) }}</span>
+                    </div>
+                    {# Address field #}
+                    <div class="row mb-3">
+                        {{ form_label(form.adresse, 'Address:', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <span class="error-message text-danger">{{ form_errors(form.adresse) }}</span>
+                    </div>
+
+                    <div class="row mb-3">
+                        {{ form_label(form.TypeHebergement, 'Type:', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.TypeHebergement, {'attr': {'class': 'form-select'}}) }}
+                        </div>
+                        <span class="error-message text-danger">{{ form_errors(form.TypeHebergement) }}</span>
+                    </div>
+
+                    {# HostServices field with multiple selection #}
+                    <div class="row mb-3">
+                        {{ form_label(form.HostService, 'HostService:', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.HostService, {'attr': {'class': 'form-select'}}) }}
+                        </div>
+                        <span class="error-message text-danger">{{ form_errors(form.HostService) }}</span>
+                    </div>
+
+                    <div class="row mb-3">
+                        {{ form_label(form.image, 'Image:', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.image, {'attr': {'class': 'form-control'}, 'accept': 'image/*'}) }}
+                        </div>
+                        <span class="error-message text-danger">{{ form_errors(form.image) }}</span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-outline-primary">{{ button_label|default('Save') }}</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

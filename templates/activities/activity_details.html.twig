@@ -1,0 +1,833 @@
+{% extends 'base.html.twig' %}
+{% block title %}Activities details
+{% endblock %}
+{% block content %}
+	<!--====== Start Place Details Section ======-->
+	<div id="flash-messages">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{message}}
+			</div>
+		{% endfor %}
+	</div>
+	<section
+		class="place-details-section">
+		<!--=== Place Slider ===-->
+		<div class="place-slider-area overflow-hidden wow fadeInUp">
+			<div class="place-slider">
+				{% for image in activity.activityImages %}
+					{% set imageSize = cycle(['width:465px;height:630px;', 'width:950px;height:630px;'], loop.index0) %}
+					<div class="place-slider-item">
+						<div class="place-img" style="{{ imageSize }}">
+							{% if image.url starts with 'https' %}
+								<img src="{{ image.url }}" alt="Place Image" style="width:100%;height:100%; object-fit:cover;">
+							{% else %}
+								<img src="{{ asset('assets/uploads/activities/' ~ image.url) }}" alt="Place Image" style="width:100%;height:100%; object-fit:cover;">
+							{% endif %}
+						</div>
+					</div>
+				{% endfor %}
+
+				{# <div class="place-slider-item">
+																																																																																																																																				                        <div class="place-img" >
+																																																																																																																																				                            <img src="{{ asset('assets/images/place/single-place-1.jpg') }}" alt="Place Image">
+																																																																																																																																				                        </div>
+																																																																																																																																				                    </div>
+																																																																																																																																				                    <div class="place-item">
+																																																																																																																																				                        <div class="place-img">
+																																																																																																																																				                            <img src="{{ asset('assets/images/place/single-place-2.jpg') }}" alt="Place Image">
+																																																																																																																																				                        </div>
+																																																																																																																																				                    </div>
+																																																																																																																																				                    <div class="place-slider-item">
+																																																																																																																																				                        <div class="place-img">
+																																																																																																																																				                            <img src="{{ asset('assets/images/place/single-place-3.jpg') }}" alt="Place Image">
+																																																																																																																																				                        </div>
+																																																																																																																																				                    </div>
+																																																																																																																																				                    <div class="place-slider-item">
+																																																																																																																																				                        <div class="place-img">
+																																																																																																																																				                            <img src="{{ asset('assets/images/place/single-place-2.jpg') }}" alt="Place Image">
+																																																																																																																																				                        </div>
+																																																																																																																																				                    </div> #}
+			</div>
+		</div>
+		<div
+			class="container">
+			<!--=== Tour Details Wrapper ===-->
+			<div
+				class="tour-details-wrapper pt-80">
+				<!--=== Tour Title Wrapper ===-->
+				<div class="tour-title-wrapper pb-30 wow fadeInUp">
+					<div class="row">
+						<div class="col-xl-6">
+							<div class="tour-title mb-20">
+								<h3 class="title">{{activity.name}}</h3>
+								<p>
+									<i class="far fa-map-marker-alt"></i>
+									{{activity.location}}</p>
+							</div>
+						</div>
+						<div class="col-xl-6">
+							<div class="tour-widget-info">
+								<div class="info-box mb-20">
+									<div class="icon">
+										<i class="fal fa-box-usd"></i>
+									</div>
+									<div class="info">
+										<h4>
+											<span>From</span>
+											{{activity.price}}</h4>
+									</div>
+								</div>
+								<div class="info-box mb-20">
+									<div class="icon">
+										<i class="fal fa-clock"></i>
+									</div>
+									<div class="info">
+										<h4>
+											<span>Durations</span>
+											{{activity.duration}}
+											Hours</h4>
+									</div>
+								</div>
+								<div class="info-box mb-20">
+									<div class="icon">
+										<i class="fal fa-planet-ringed"></i>
+									</div>
+									<div class="info">
+										<h4>
+											<span>Activity Type</span>
+											{{activity.type}}</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--=== Tour Area Nav ===-->
+				<div class="tour-area-nav pt-20 pb-20 wow fadeInUp">
+					<div class="row align-items-center">
+						<div class="col-md-4">
+							<div class="ratings-box">
+								<ul class="ratings">
+									<li>
+										<i class="fas fa-star"></i>
+									</li>
+									<li>
+										<i class="fas fa-star"></i>
+									</li>
+									<li>
+										<i class="fas fa-star"></i>
+									</li>
+									<li>
+										<i class="fas fa-star"></i>
+									</li>
+									<li>
+										<i class="fas fa-star"></i>
+									</li>
+									<li>
+										<a href="#">(3k Riviews)</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-8">
+							<div class="share-nav">
+								<a href="#">Share<i class="far fa-share"></i>
+								</a>
+								<a href="#">Reviews<i class="far fa-share"></i>
+								</a>
+
+								{% if isActivityInWishlist %}
+									<a href="{{ path('fav_activities_add', {'id': activity.id}) }}" onclick="toggleHeartIcon(event,this)">Wishlist<i class="fas fa-heart"></i>
+									</a>
+								{% else %}
+									<a href="{{ path('fav_activities_add', {'id': activity.id}) }}" onclick="toggleHeartIcon(event,this)">Wishlist<i class="far fa-heart"></i>
+									</a>
+								{% endif %}
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div
+						class="col-xl-8">
+						<!--=== Place Content Wrap ===-->
+						<div class="place-content-wrap pt-45 wow fadeInUp">
+							<h3 class="title">Description</h3>
+							<p>{{activity.description}}</p>
+							<h4>Advance Facilities</h4>
+							<p>Neque porro quisquam est dolorem ipsum quia dolor si amet consectetur adipisci velit sed quian numquam eius tempora incidunt labore dolore magnam aliquam quaerat voluptatem.</p>
+							<div class="row align-items-lg-center">
+								<div class="col-lg-5">
+									<ul class="check-list">
+										<li>
+											<i class="fas fa-badge-check"></i>Parking in the Camp</li>
+										<li>
+											<i class="fas fa-badge-check"></i>Pick and Drop Services</li>
+										<li>
+											<i class="fas fa-badge-check"></i>Washing Machines</li>
+										<li>
+											<i class="fas fa-badge-check"></i>Cruise Dinner & Music Event</li>
+										<li>
+											<i class="fas fa-badge-check"></i>Visit 5 Best Places With Group</li>
+										<li>
+											<i class="fas fa-badge-check"></i>Motorhome service</li>
+										<li>
+											<i class="fas fa-badge-check"></i>1 Meal Per Day</li>
+									</ul>
+								</div>
+								<div class="col-lg-7">
+									{% if activity.activityImages[0].url starts with 'https' %}
+										<img src="{{ random(activity.activityImages).url }}" class="mb-20 w-100" alt="place image" style=" width:470px; height:365px; ">
+									{% else %}
+										<img src="{{ asset('assets/uploads/activities/' ~ random(activity.activityImages).url) }}" class="mb-20 w-100" alt="place image" style=" width:470px; height:365px; ">
+									{% endif %}
+								</div>
+							</div>
+							<h4>Tour Plan</h4>
+							<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur 
+																																																																																																																																																																																																																																																																								                                    vel eillum qui dolorem eum fugiat quo voluptas nulla pariatur</p>
+						</div>
+						<!--=== Days Area ===-->
+						<div class="days-area mb-55 wow fadeInUp">
+							<ul class="nav nav-tabs mb-35">
+								<li class="nav-item">
+									<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#day1">Day 1st</button>
+								</li>
+								<li class="nav-item">
+									<button class="nav-link" data-bs-toggle="tab" data-bs-target="#day2">Day 2nd</button>
+								</li>
+								<li class="nav-item">
+									<button class="nav-link" data-bs-toggle="tab" data-bs-target="#day3">Day 3rd</button>
+								</li>
+								<li class="nav-item">
+									<button class="nav-link" data-bs-toggle="tab" data-bs-target="#day4">Day 4th</button>
+								</li>
+								<li class="nav-item">
+									<button class="nav-link" data-bs-toggle="tab" data-bs-target="#day5">Day 5th</button>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane fade show active" id="day1">
+									<div class="content-box">
+										<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magne doloreseos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor si amet consectetur adipisci velit sed quian numquam eius modi tempora incidunt</p>
+										<ul class="check-list">
+											<li>
+												<i class="fas fa-badge-check"></i>Parking in the Camp</li>
+											<li>
+												<i class="fas fa-badge-check"></i>kayaking Sport</li>
+											<li>
+												<i class="fas fa-badge-check"></i>Mountain Hiking</li>
+										</ul>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="day2">
+									<div class="content-box">
+										<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magne doloreseos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor si amet consectetur adipisci velit sed quian numquam eius modi tempora incidunt</p>
+										<ul class="check-list">
+											<li>
+												<i class="fas fa-badge-check"></i>Parking in the Camp</li>
+											<li>
+												<i class="fas fa-badge-check"></i>kayaking Sport</li>
+											<li>
+												<i class="fas fa-badge-check"></i>Mountain Hiking</li>
+										</ul>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="day3">
+									<div class="content-box">
+										<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magne doloreseos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor si amet consectetur adipisci velit sed quian numquam eius modi tempora incidunt</p>
+										<ul class="check-list">
+											<li>
+												<i class="fas fa-badge-check"></i>Parking in the Camp</li>
+											<li>
+												<i class="fas fa-badge-check"></i>kayaking Sport</li>
+											<li>
+												<i class="fas fa-badge-check"></i>Mountain Hiking</li>
+										</ul>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="day4">
+									<div class="content-box">
+										<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magne doloreseos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor si amet consectetur adipisci velit sed quian numquam eius modi tempora incidunt</p>
+										<ul class="check-list">
+											<li>
+												<i class="fas fa-badge-check"></i>Parking in the Camp</li>
+											<li>
+												<i class="fas fa-badge-check"></i>kayaking Sport</li>
+											<li>
+												<i class="fas fa-badge-check"></i>Mountain Hiking</li>
+										</ul>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="day5">
+									<div class="content-box">
+										<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magne doloreseos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor si amet consectetur adipisci velit sed quian numquam eius modi tempora incidunt</p>
+										<ul class="check-list">
+											<li>
+												<i class="fas fa-badge-check"></i>Parking in the Camp</li>
+											<li>
+												<i class="fas fa-badge-check"></i>kayaking Sport</li>
+											<li>
+												<i class="fas fa-badge-check"></i>Mountain Hiking</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!--=== Map Box ===-->
+						<div class="map-box mb-60 wow fadeInUp">
+							<iframe src="https://maps.google.com/maps?q=new%20york&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+						</div>
+						<!--=== Calendar Box ===-->
+						<div class="calendar-wrapper wow fadeInUp">
+							<div class="calendar-container mb-45"></div>
+						</div>
+						<!--=== Releted Tour Place ===-->
+						<div class="related-tour-place wow fadeInUp">
+							<div class="row">
+								<div class="col-md-8">
+									<div class="section-title mb-35">
+										<h3>Related Tours</h3>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="place-arrows mb-35"></div>
+								</div>
+							</div>
+							<div
+								class="recent-place-slider">
+								<!--=== Single Place Item ===-->
+								{% for activity in activities %}
+									<div class="single-place-item mb-60">
+										<div class="place-img">
+											{% if activity.activityImages[0].url starts with 'https' %}
+												<img src="{{ activity.activityImages[0].url }}" alt="Place Image" style="width: 410px; height: 280px;">
+											{% else %}
+												<img src="{{ asset('assets/uploads/activities/' ~ activity.activityImages[0].url) }}" alt="Place Image" style="width: 410px; height: 280px;">
+											{% endif %}
+										</div>
+										<div class="place-content">
+											<div class="info">
+												<ul class="ratings">
+													<li>
+														<i class="fas fa-star"></i>
+													</li>
+													<li>
+														<i class="fas fa-star"></i>
+													</li>
+													<li>
+														<i class="fas fa-star"></i>
+													</li>
+													<li>
+														<i class="fas fa-star"></i>
+													</li>
+													<li>
+														<i class="fas fa-star"></i>
+													</li>
+													<li>
+														<a href="#">(4.9)</a>
+													</li>
+												</ul>
+												<h4 class="title">
+													<a href="{{ path('activityController_details', {'id': activity.id}) }}">{{activity.name}}</a>
+												</h4>
+												<p class="location">
+													<i class="fas fa-map-marker-alt"></i>
+													{{activity.location}}</p>
+												<p class="price">
+													<i class="fas fa-usd-circle"></i>Price<span class="currency">$</span>
+													{{activity.price}}</p>
+												<div class="meta">
+													<span>
+														<i class="far fa-clock"></i>
+														{{activity.duration}}</span>
+													<span>
+														<i class="far fa-user"></i>
+														{{activity.maxGuests}}</span>
+													<span>
+														<a href="{{ path('activityController_details', {'id': activity.id}) }}">Details<i class="far fa-long-arrow-right"></i>
+														</a>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+
+							</div>
+						</div>
+						<!--=== Reviews Area ===-->
+						{# Calculate the total sum of ratings #}
+						{% set totalRating = 0 %}
+						{% for comment in activity.comments %}
+							{% set totalRating = totalRating + comment.rating %}
+						{% endfor %}
+
+						{# Calculate the total number of comments #}
+						{% set totalComments = activity.comments|length %}
+
+						{# Calculate the average rating #}
+						{% if totalComments > 0 %}
+							{% set averageRating = totalRating / totalComments %}
+						{% else %}
+							{% set averageRating = 0 %}
+						{% endif %}
+						<div class="reviews-wrapper mb-60 wow fadeInUp">
+							<div class="reviews-inner-box">
+								<div class="rating-value">
+									<h4>Clients Reviews</h4>
+									<div class="rate-score">{{ averageRating|number_format(1) }}</div>
+
+									<span class="reviews">{{totalComments}}
+										Reviews</span>
+								</div>
+							</div>
+						</div>
+						{# <div class="reviews-wrapper mb-60 wow fadeInUp">
+																																																	<div class="reviews-inner-box">
+																																																		<div class="rating-value">
+																																																			<h4>Clients Reviews</h4>
+																																																			<div class="rate-score">{{ averageRating|number_format(1) }}</div>
+																																										
+																																																			<span class="reviews">{{totalComments}}
+																																																				Reviews</span>
+																																																		</div>
+																																																		<div class="reviews-progress">
+																																																			<div class="single-progress-bar">
+																																																				<div class="progress-title">
+																																																					<h6>Quality
+																																																						<span class="rate">4.8</span>
+																																																					</h6>
+																																																				</div>
+																																																				<div class="progress">
+																																																					<div class="progress-bar wow slideInLeft" style="width: {{averageRating*20}}%"></div>
+																																																				</div>
+																																																			</div>
+																																																			<div class="single-progress-bar">
+																																																				<div class="progress-title">
+																																																					<h6>Team Member<span class="rate">4.6</span>
+																																																					</h6>
+																																																				</div>
+																																																				<div class="progress">
+																																																					<div class="progress-bar wow slideInLeft" style="width: {{averageRating*20}}%"></div>
+																																																				</div>
+																																																			</div>
+																																																			<div class="single-progress-bar">
+																																																				<div class="progress-title">
+																																																					<h6>Locations<span class="rate">4.7</span>
+																																																					</h6>
+																																																				</div>
+																																																				<div class="progress">
+																																																					<div class="progress-bar wow slideInLeft" style="width: {{averageRating*20}}%"></div>
+																																																				</div>
+																																																			</div>
+																																																			<div class="single-progress-bar">
+																																																				<div class="progress-title">
+																																																					<h6>Cost<span class="rate">4.9</span>
+																																																					</h6>
+																																																				</div>
+																																																				<div class="progress">
+																																																					<div class="progress-bar wow slideInLeft" style="width: {{averageRating*20}}%"></div>
+																																																				</div>
+																																																			</div>
+																																																		</div>
+																																																	</div>
+																																																</div> #}
+						<!--=== Comments Area ===-->
+						<div class="comments-area wow fadeInUp">
+							<ul class="comment-list">
+								{% for comment in activity.comments %}
+									<li>
+										<div class="comment">
+											<div class="comment-avatar">
+												<img src="{{ asset('assets/images/place/comment-1.jpg') }}" alt="comment author">
+											</div>
+											<div class="comment-wrap" style="width:100%">
+												<div class="comment-author-content">
+													<span class="author-name">{{comment.name}}<span class="time">
+															<i class="far fa-clock"></i>
+															{{ comment.createdAt|date('Y-m-d H:i') }}</span>
+													</span>
+
+													<p>{{comment.text}}</p>
+													<a href="#" class="btn-link">Reply<i class="far fa-angle-double-right"></i>
+													</a>
+												</div>
+											</div>
+										</div>
+									</li>
+
+								</ul>
+							{% endfor %}
+						</div>
+						<!--===  Comments Form  ===-->
+						<div class="comments-respond mb-30 wow fadeInUp">
+							<h3 class="comments-heading" style="margin-bottom: 15px;">Leave a Comments</h3>
+							<ul class="comment-rating-ul mb-20">
+								<li>
+									<span class="title">rating</span>
+									<span>
+										<i class="fas fa-star"></i>
+									</span>
+									<span>
+										<i class="fas fa-star"></i>
+									</span>
+									<span>
+										<i class="fas fa-star"></i>
+									</span>
+									<span>
+										<i class="fas fa-star"></i>
+									</span>
+									<span>
+										<i class="fas fa-star"></i>
+									</span>
+								</li>
+							</ul>
+
+							<form method="POST" class="comment-form" id="commentForm" novalidate>
+								{{ form_start(formC) }}
+								<div class="row">
+									<div class="col-lg-6">
+										<span class="error-message">{{ form_errors(formC.rating)}}</span>
+										<div
+											class="form_group">
+											{# Render the rating field #}
+											{{ form_widget(formC.rating, {'attr': {'class': 'form_control', 'placeholder': 'Rating from 1 to 5'}}) }}
+										</div>
+
+
+									</div>
+									<div class="col-lg-6">
+										<span class="error-message">{{ form_errors(formC.email)}}</span>
+										<div
+											class="form_group">
+											{# Render the email field #}
+											{{ form_widget(formC.email, {'attr': {'class': 'form_control', 'placeholder': 'Email Address'}}) }}
+										</div>
+
+									</div>
+									<div class="col-lg-6">
+										<span class="error-message">{{ form_errors(formC.name)}}</span>
+										<div
+											class="form_group">
+											{# Render the name field #}
+											{{ form_widget(formC.name, {'attr': {'class': 'form_control', 'placeholder': 'Enter Name'}}) }}
+										</div>
+
+									</div>
+									<div class="col-lg-12">
+										<span class="error-message">{{ form_errors(formC.text)}}</span>
+										<div
+											class="form_group">
+											{# Render the message field #}
+											{{ form_widget(formC.text, {'attr': {'class': 'form_control', 'rows': 4, 'placeholder': 'Write Comments'}}) }}
+										</div>
+
+									</div>
+									<div class="col-lg-12">
+										<div
+											class="form_group">
+											{# Render the submit button #}
+											<button type="submit" class="main-btn primary-btn">Send comments<i class="fas fa-angle-double-right"></i>
+											</button>
+										</button>
+									</div>
+								</div>
+							</div>
+							{{ form_end(formC) }}
+						</form>
+						{# {% for message in app.flashes('success') %}
+																																																						<div class="alert alert-success">
+																																																							{{message}}
+																																																						</div>
+																																																					{% endfor %} #}
+					</div>
+				</div>
+
+				<div
+					class="col-xl-4">
+					<!--=== Sidebar Widget Area ===-->
+					<div
+						class="sidebar-widget-area pt-60 pl-lg-30">
+						<!--=== Booking Widget ===-->
+						<div class="sidebar-widget booking-form-widget wow fadeInUp mb-40">
+							<h4 class="widget-title">Booking Tour</h4>
+							<form method="POST" class="sidebar-booking-form" novalidate>
+
+								{{ form_start(formR) }}
+
+								{# Render the date field #}
+								<span class="error-message">{{ form_errors(formR.date)}}</span>
+								<div class="booking-item">
+									{{ form_label(formR.date) }}
+									<i class="far fa-calendar-alt"></i>
+									{{ form_widget(formR.date, {'attr': {'class':"bk-item booking-time",'type':"text" ,'placeholder':"Select Date"}}) }}
+
+								</div>
+
+								{# Render the email field #}
+								<span class="error-message">{{ form_errors(formR.userEmail)}}</span>
+								<div class="booking-item">
+									{{ form_label(formR.userEmail) }}
+									{{ form_widget(formR.userEmail, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+
+								</div>
+
+								{# Render the number of tickets field #}
+								<span class="error-message">{{ form_errors(formR.nbrTickets)}}</span>
+								<div class="booking-item">
+									{{ form_label(formR.nbrTickets, 'Tickets') }}
+									{{ form_widget(formR.nbrTickets, {'attr': {'class': 'form-control'}}) }}
+
+								</div>
+
+
+								{# Render the submit button #}
+								<button type="submit" class="main-btn primary-btn">Booking Now<i class="far fa-paper-plane"></i>
+								</button>
+
+								{{ form_end(formR) }}
+							</form>
+						</div>
+						<div id="activityPrice" data-price="{{ activity.price }}" style="display: none;"></div>
+						<!--=== Booking Info Widget ===-->
+						<div class="sidebar-widget booking-info-widget wow fadeInUp mb-40">
+							<h4 class="widget-title">Tour Information</h4>
+							<ul class="info-list">
+								<li>
+									<span>
+										<i class="far fa-user-circle"></i>Max Guests<span>{{activity.maxGuests}}</span>
+									</span>
+								</li>
+								<li>
+									<span>
+										<i class="far fa-user-circle"></i>Minimum Age<span>{{activity.minAge}}</span>
+									</span>
+								</li>
+								<li>
+									<span>
+										<i class="far fa-map-marker-alt"></i>Tour Location<span>{{activity.location}}</span>
+									</span>
+								</li>
+								<li>
+									<span>
+										<i class="far fa-globe"></i>Language<span>English</span>
+									</span>
+								</li>
+							</ul>
+						</div>
+						{# <!--=== Recent Place Widget ===-->
+																																							<div class="sidebar-widget recent-place-widget mb-40 wow fadeInUp">
+																																								<h4 class="widget-title">Last Minute Deals</h4>
+																																								<ul class="recent-place-list">
+																																									<li class="place-thumbnail-content">
+																																										<img src="{{ asset('assets/images/place/thumb-1.jpg') }}" alt="post thumb">
+																																										<div class="place-content">
+																																											<ul class="ratings">
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="far fa-star"></i>
+																																												</li>
+																																											</ul>
+																																											<h5>
+																																												<a href="tour-details.html">Infinity Pool Nears
+																																																																																																																																																																																																																																																																																																																																																																																																												                                                    Beach</a>
+																																											</h5>
+																																											<span class="price">
+																																												<span class="text">From :</span>
+																																												<span class="currency">$</span>45.23</span>
+																																										</div>
+																																									</li>
+																																									<li class="place-thumbnail-content">
+																																										<img src="{{ asset('assets/images/place/thumb-2.jpg') }}" alt="post thumb">
+																																										<div class="place-content">
+																																											<ul class="ratings">
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="fas fa-star-half-alt"></i>
+																																												</li>
+																																											</ul>
+																																											<h5>
+																																												<a href="tour-details.html">Infinity Pool Nears
+																																																																																																																																																																																																																																																																																																																																																																																																												                                                    Beach</a>
+																																											</h5>
+																																											<span class="price">
+																																												<span class="text">From :</span>
+																																												<span class="currency">$</span>45.23</span>
+																																										</div>
+																																									</li>
+																																									<li class="place-thumbnail-content">
+																																										<img src="{{ asset('assets/images/place/thumb-3.jpg') }}" alt="post thumb">
+																																										<div class="place-content">
+																																											<ul class="ratings">
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																												<li>
+																																													<i class="fas fa-star"></i>
+																																												</li>
+																																											</ul>
+																																											<h5>
+																																												<a href="tour-details.html">Infinity Pool Nears
+																																																																																																																																																																																																																																																																																																																																																																																																												                                                    Beach</a>
+																																											</h5>
+																																											<span class="price">
+																																												<span class="text">From :</span>
+																																												<span class="currency">$</span>45.23</span>
+																																										</div>
+																																									</li>
+																																								</ul>
+																																							</div> #}
+					<!--=== Banner Widget ===-->
+						{# <div class="sidebar-widget sidebar-banner-widget wow fadeInUp mb-40">
+																																								<div class="banner-widget-content">
+																																									<div class="banner-img">
+																																										<img src="{{ asset('assets/images/blog/banner-1.jpg') }}" alt="Post Banner">
+																																										<div class="hover-overlay">
+																																											<div class="hover-content">
+																																												<h4 class="title">
+																																													<a href="#">Swimming Pool</a>
+																																												</h4>
+																																												<p>
+																																													<i class="fas fa-map-marker-alt"></i>Marrakesh, Morocco</p>
+																																											</div>
+																																										</div>
+																																									</div>
+																																								</div>
+																																							</div> #}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--====== End Place Details Section ======-->
+{#<!--====== Start Gallery Section ======-->
+																														        <section class="gallery-section mbm-150">
+																														            <div class="container-fluid">
+																														                <div class="slider-active-5-item wow fadeInUp">
+																														                    <!--=== Single Gallery Item ===-->
+																														                    <div class="single-gallery-item">
+																														                        <div class="gallery-img">
+																														                            <img src="{{ asset('assets/images/gallery/gl-1.jpg') }}" alt="Gallery Image">
+																														                            <div class="hover-overlay">
+																														                                <a href="{{ asset('assets/images/gallery/gl-1.jpg') }}" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+																														                            </div>
+																														                        </div>
+																														                    </div>
+																														                    <!--=== Single Gallery Item ===-->
+																														                    <div class="single-gallery-item">
+																														                        <div class="gallery-img">
+																														                            <img src="{{ asset('assets/images/gallery/gl-2.jpg') }}" alt="Gallery Image">
+																														                            <div class="hover-overlay">
+																														                                <a href="{{ asset('assets/images/gallery/gl-2.jpg') }}" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+																														                            </div>
+																														                        </div>
+																														                    </div>
+																														                    <!--=== Single Gallery Item ===-->
+																														                    <div class="single-gallery-item">
+																														                        <div class="gallery-img">
+																														                            <img src="{{ asset('assets/images/gallery/gl-3.jpg') }}" alt="Gallery Image">
+																														                            <div class="hover-overlay">
+																														                                <a href="{{ asset('assets/images/gallery/gl-3.jpg') }}" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+																														                            </div>
+																														                        </div>
+																														                    </div>
+																														                    <!--=== Single Gallery Item ===-->
+																														                    <div class="single-gallery-item">
+																														                        <div class="gallery-img">
+																														                            <img src="{{ asset('assets/images/gallery/gl-4.jpg') }}" alt="Gallery Image">
+																														                            <div class="hover-overlay">
+																														                                <a href="{{ asset('assets/images/gallery/gl-4.jpg') }}" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+																														                            </div>
+																														                        </div>
+																														                    </div>
+																														                    <!--=== Single Gallery Item ===-->
+																														                    <div class="single-gallery-item">
+																														                        <div class="gallery-img">
+																														                            <img src="{{ asset('assets/images/gallery/gl-5.jpg') }}" alt="Gallery Image">
+																														                            <div class="hover-overlay">
+																														                                <a href="{{ asset('assets/images/gallery/gl-5.jpg') }}" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+																														                            </div>
+																														                        </div>
+																														                    </div>
+																														                    <!--=== Single Gallery Item ===-->
+																														                    <div class="single-gallery-item">
+																														                        <div class="gallery-img">
+																														                            <img src="{{ asset('assets/images/gallery/gl-3.jpg') }}" alt="Gallery Image">
+																														                            <div class="hover-overlay">
+																														                                <a href="{{ asset('assets/images/gallery/gl-3.jpg') }}" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+																														                            </div>
+																														                        </div>
+																														                    </div>
+																														                </div>
+																														            </div>
+																														        </section><!--====== End Gallery Section ======-->#}{% endblock %}{% block script %}
+{{ parent() }}
+<script>
+	// Hide flash messages after 2 seconds
+document.addEventListener('DOMContentLoaded', function () {
+setTimeout(function () {
+var flashMessages = document.getElementById('flash-messages');
+if (flashMessages) {
+flashMessages.innerHTML = '';
+}
+}, 3000);
+});
+
+document.addEventListener('DOMContentLoaded', function () { // Get the form element
+var form = document.getElementById('AddForm');
+
+// Add event listener for form submission
+form.addEventListener('submit', function (event) { // Show confirmation dialog
+var confirmation = confirm('Are you sure you want to submit this form?');
+
+// If user cancels, prevent form submission
+if (! confirmation) {
+event.preventDefault();
+}
+});
+});
+
+
+function toggleHeartIcon(event, link) {
+        event.preventDefault(); // Prevent the default behavior of the link
+        var heartIcon = link.querySelector('.fa-heart');
+        heartIcon.classList.toggle('fas'); // Toggle solid heart icon class
+        heartIcon.classList.toggle('far'); // Toggle outline heart icon class
+    }
+</script>{% endblock %}

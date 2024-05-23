@@ -1,0 +1,35 @@
+{% extends "admin_dashboard/base_back.html.twig" %}
+
+{% block title %}ProductCat index{% endblock %}
+
+{% block content %}
+    <h1>ProductCat index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product_cat in product_cats %}
+            <tr>
+                <td>{{ product_cat.id }}</td>
+                <td>{{ product_cat.name }}</td>
+                <td>
+                    <a href="{{ path('app_product_cat_show', {'id': product_cat.id}) }}">show</a>
+                    <a href="{{ path('app_product_cat_edit', {'id': product_cat.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_product_cat_new') }}">Create new</a>
+{% endblock %}

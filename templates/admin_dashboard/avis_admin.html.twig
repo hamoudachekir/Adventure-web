@@ -1,0 +1,106 @@
+{% extends "base_back.html.twig" %}
+
+{% block content %}
+	<main id="main" class="main">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="flash-messages">
+						{% for message in app.flashes('success') %}
+							<div class="alert alert-success">
+								{{ message }}
+							</div>
+						{% endfor %}
+					</div>
+					<div class="card">
+						<div class="card-header">
+							<h5 class="card-title">Commentaires</h5>
+							{% block downloadPDF %}
+								<div class="container-fluid page__heading-container">
+									<div class="page__heading d-flex align-items-center">
+										<div class="flex">
+											<nav aria-label="breadcrumb">
+												<ol class="breadcrumb mb-0">
+													<li class="breadcrumb-item">
+														<a href="{{ path('avis_download_pdf') }}">
+															<i class="fas fa-file-download" style="margin-left: 10px; font-size: 30px;"></i>
+															Download PDF
+														</a>
+													</li>
+												</ol>
+											</nav>
+										</div>
+									</div>
+								</div>
+							{% endblock %}
+						</div>
+						<div class="card-body">
+							<p>Liste de tous les commentaires</p>
+							<div class="table-responsive">
+								<table class="table table-striped datatable">
+									<thead>
+									<tr>
+										<th>Id</th>
+										<th>Note</th>
+										<th>Commentaire</th>
+										<th>Nom</th>
+										<th>Créé le</th>
+										<th>Modifié le</th>
+										<th>Actions</th>
+									</tr>
+									</thead>
+									<tbody>
+									{% for avi in avis %}
+										<tr>
+											<td>{{ avi.id }}</td>
+											<td>{{ avi.note }}</td>
+											<td>{{ avi.commentaire }}</td>
+											<td>{{ avi.nom }}</td>
+											<td>{{ avi.createdAt ? avi.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+											<td>{{ avi.updatedAt ? avi.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+											<td>
+												<a href="{{ path('app_avis_show', {'id': avi.id}) }}" class="btn btn-sm btn-info">Afficher</a>
+												<a href="{{ path('app_avis_delete', {'id': avi.id}) }}" class="btn btn-sm btn-danger">Supprimer</a>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="7">Aucun enregistrement trouvé</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Statistiques des avis -->
+				<div class="col-12 mb-4">
+					<div class="card">
+						<div class="card-header bg-gradient-primary">
+							<h6 class="text-white text-capitalize">Statistiques des avis</h6>
+						</div>
+						<div class="card-body">
+							<p>Total d'avis: {{ totalAvis }}</p>
+							<p>Avis par note:</p>
+							<ul>
+								{% for note, count in avisParNote %}
+									<li>Note {{ note }}</li>
+								{% endfor %}
+							</ul>
+							<p>Derniers avis ajoutés:</p>
+							<ul>
+								{% for avi in avis %}
+									<li>Note {{ avi.note }}</li>
+								{% endfor %}
+							</ul>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</main>
+
+{% endblock %}

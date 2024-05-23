@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Reset your password{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/assets/images/reset/reset.jpg'); /* Path to your background image */
+
+           background-color: #f0f5f9; /* Light blue for sky */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background-color: #ffffff; /* White for clean, natural look */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .title {
+            color: #63AB45; /* Green for adventure */
+            margin-bottom: 20px;
+        }
+        .form-container {
+            background-color: #f5f5f5; /* Light gray for form container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #63AB45; /* Green for contrast */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #478b36; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Reset your password</h1>
+
+        <div class="form-container">
+            {{ form_start(resetForm) }}
+                <div class="form-group">
+                    {{ form_row(resetForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Enter your new password'}}) }}
+                </div>
+                <button type="submit" class="btn btn-primary">Reset Password</button>
+            {{ form_end(resetForm) }}
+        </div>
+    </div>
+</body>
+</html>

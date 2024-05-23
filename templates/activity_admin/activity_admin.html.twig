@@ -1,0 +1,233 @@
+{% extends "base_back.html.twig" %}
+
+{% block content %}
+	<main id="main" class="main">
+		<div id="flash-messages">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{message}}
+				</div>
+			{% endfor %}
+		</div>
+		<div class="pagetitle">
+			<h1>Activities</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="#">Activities</a>
+					</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Activities</h5>
+					<p>List of all the activities</p>
+
+					<!-- Table with stripped rows -->
+					<table class="table datatable">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Image</th>
+								<th>Name</th>
+								<th>Location</th>
+								<th>Price</th>
+								<th>Duration</th>
+								<th>Type</th>
+								<th>Description</th>
+								<th>MaxGuests</th>
+								<th>MinAge</th>
+								<th>actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for activity in activities %}
+								<tr>
+									<td>{{ activity.id }}</td>
+									<td>
+									{% if activity.activityImages[0].url starts with 'https' %}
+										<img src="{{ activity.activityImages[0].url }}" alt="Activity Image" style="width: 50px; height: 50px;">
+									{% else %}
+										<img src="{{ asset('assets/uploads/activities/' ~ activity.activityImages[0].url) }}" alt="Activity Image" style="width: 50px; height: 50px;">
+									{% endif %}
+									</td>
+									<td>{{ activity.name }}</td>
+									<td>{{ activity.location }}</td>
+									<td>{{ activity.price }}</td>
+									<td>{{ activity.duration }}</td>
+									<td>{{ activity.type }}</td>
+									<td>{{ activity.description }}</td>
+									<td>{{ activity.maxGuests }}</td>
+									<td>{{ activity.minAge }}</td>
+									<td>
+										<a href="{{ path('activity_show', {'id': activity.id}) }}">show</a>
+										<a href="{{ path('activity_edit', {'id': activity.id}) }} ">edit</a>
+										<a href="{{ path('activity_delete', {'id': activity.id}) }} ">delete</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="10">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<!-- End Table with stripped rows -->
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Add an activity</h5>
+							<form id="AddForm" method="POST" enctype="multipart/form-data" novalidate>
+								{{ form_start(form) }}
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">Name</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.name)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">Location</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.location)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">Price</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.price)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">Duration</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.duration, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.duration)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">Type</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.type)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.description, {'attr': {'class': 'form-control', 'style': 'height: 100px;'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.description)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputNumber" class="col-sm-2 col-form-label">Max guests</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.maxGuests, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.maxGuests)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputNumber" class="col-sm-2 col-form-label">Min age</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.minAge, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.minAge)}}</span>
+								</div>
+
+								<div class="row mb-3">
+									{{ form_widget(form.images) }}
+								</div>
+
+								<div class="row mb-3">
+									<div class="col-sm-10">
+										<button type="submit" class="btn btn-primary">Add Activity</button>
+									</div>
+								</div>
+								{{ form_end(form) }}
+							</form>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Doughnut Chart</h5>
+
+							<!-- Doughnut Chart -->
+							<canvas id="doughnutChart" style="max-height: 400px; display: block; box-sizing: border-box; height: 400px; width: 762px;" width="953" height="500"></canvas>
+
+							<!-- End Doughnut CHart -->
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+	<!-- End #main -->
+{% endblock %}
+{% block script %}
+	{{ parent() }}
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+new Chart(document.querySelector('#doughnutChart'), {
+type: 'doughnut',
+data: {
+labels: [
+'Red', 'Blue', 'Yellow'
+],
+datasets: [
+{
+label: 'My First Dataset',
+data: [
+300, 50, 100
+],
+backgroundColor: [
+'rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'
+],
+hoverOffset: 4
+}
+]
+}
+});
+});
+
+// Hide flash messages after 2 seconds
+document.addEventListener('DOMContentLoaded', function () {
+setTimeout(function () {
+var flashMessages = document.getElementById('flash-messages');
+if (flashMessages) {
+flashMessages.innerHTML = '';
+}
+}, 3000);
+});
+
+document.addEventListener('DOMContentLoaded', function () { // Get the form element
+var form = document.getElementById('AddForm');
+
+// Add event listener for form submission
+form.addEventListener('submit', function (event) { // Show confirmation dialog
+var confirmation = confirm('Are you sure you want to submit this form?');
+
+// If user cancels, prevent form submission
+if (! confirmation) {
+event.preventDefault();
+}
+});
+});
+	</script>
+{% endblock %}

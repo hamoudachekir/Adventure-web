@@ -1,0 +1,256 @@
+{% extends 'base.html.twig' %}
+{% block title %}Activities
+{% endblock %}
+{% block content %}
+	<!--====== Start Breadcrumb Section ======-->
+	<section class="page-banner overlay pt-170 pb-220 bg_cover" style="background-image: url('{{asset('assets/images/bg/page-bg.jpg')}}');">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-10">
+					<div class="page-banner-content text-center text-white">
+						<h1 class="page-title">Explore Tour Place</h1>
+						<ul class="breadcrumb-link text-white">
+							<li>
+								<a href="index.html">Home</a>
+							</li>
+							<li class="active">Explore Tour Place</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--====== End Breadcrumb Section ======-->
+	<!--====== Filter Section ======-->
+	<section class="booking-form-section pb-100">
+		<div class="container-fluid">
+			<div class="booking-form-wrapper p-r z-2">
+				<form class="booking-form-two" id="filter-form" style="flex-wrap: nowrap;">
+					<div class="form_group">
+						<span>Minimum Price</span>
+						<input type="text" class="form_control" placeholder="Min Price" name="min_price">
+					</div>
+					<div class="form_group">
+						<span>Maximum Price</span>
+						<input type="text" class="form_control" placeholder="Max Price" name="max_price">
+					</div>
+					<div class="form_group">
+						<span>Max Guests</span>
+						<label>
+							<i class="far fa-user-alt"></i>
+						</label>
+						<input type="text" class="form_control" placeholder="Max Guests" name="max_guests">
+					</div>
+
+					<div class="form_group">
+						<span>Type</span>
+						<select class="wide" id="activity-type">
+							<option data-display="Type">Type</option>
+							<option value="Water">Water</option>
+							<option value="Camping">Camping</option>
+							<option value="Air">Air</option>
+						</select>
+					</div>
+					<div class="form_group">
+						<button type="button" class="booking-btn" id="check-availability-btn">Apply
+							<i class="far fa-angle-double-right"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+	<!--====== End Filter Section ======-->
+	<!--====== Start Places Section ======-->
+	<section class="places-section pb-100">
+		<div class="container">
+			<div class="row justify-content-center">
+				{% for activity in activities %}
+					<div
+						class="col-xl-4 col-md-6 col-sm-12 places-column">
+						<!--=== Single Place Item ===-->
+						<div class="single-place-item mb-60 wow fadeInUp">
+							<div class="place-img">
+								{% if activity.activityImages|length > 0 %}
+									{% if activity.activityImages[0].url starts with 'https' %}
+										<img src="{{ activity.activityImages[0].url }}" alt="Place Image" style="width: 410px; height: 280px;">
+									{% else %}
+										<img src="{{ asset('assets/uploads/activities/' ~ activity.activityImages[0].url) }}" alt="Place Image" style="width: 410px; height: 280px;">
+									{% endif %}
+								{% else %}
+									<img src="{{ asset('assets/images/noImage.png') }}" alt="Place Image" style="width: 410px; height: 280px;">
+								{% endif %}
+
+
+							</div>
+							<div class="place-content">
+								<div class="info">
+									<ul class="ratings">
+										<li>
+											<i class="fas fa-star"></i>
+										</li>
+										<li>
+											<i class="fas fa-star"></i>
+										</li>
+										<li>
+											<i class="fas fa-star"></i>
+										</li>
+										<li>
+											<i class="fas fa-star"></i>
+										</li>
+										<li>
+											<i class="fas fa-star"></i>
+										</li>
+										<li>
+											<a href="#">(4.9)</a>
+										</li>
+									</ul>
+									<h4 class="title">
+										<a href="{{ path('activityController_details', {'id': activity.id}) }}">{{activity.name}}</a>
+									</h4>
+									<p class="location">
+										<i class="far fa-map-marker-alt"></i>
+										{{activity.location}}</p>
+									<p class="price">
+										<i class="fas fa-usd-circle"></i>Price<span class="currency">$</span>
+										{{activity.price}}</p>
+									<div class="meta">
+										<span>
+											<i class="far fa-clock"></i>
+											{{activity.duration}}
+											Hours</span>
+										<span>
+											<i class="far fa-user"></i>
+											{{activity.maxGuests}}</span>
+										<span>
+											<a href="{{ path('activityController_details', {'id': activity.id}) }}">Details<i class="far fa-long-arrow-right"></i>
+											</a>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="row">
+				<div
+					class="col-lg-12">
+					<!--=== Gowilds Pagination ===-->
+					<ul class="gowilds-pagination wow fadeInUp text-center">
+						<li>
+							<a href="#">
+								<i class="far fa-arrow-left"></i>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="active">01</a>
+						</li>
+						<li>
+							<a href="#">02</a>
+						</li>
+						<li>
+							<a href="#">03</a>
+						</li>
+						<li>
+							<a href="#">04</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="far fa-arrow-right"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--====== End Places Section ======-->
+	{#<!--====== Start Gallery Section ======-->
+				        <section class="gallery-section mbm-150">
+				            <div class="container-fluid">
+				                <div class="slider-active-5-item wow fadeInUp">
+				                    <!--=== Single Gallery Item ===-->
+				                    <div class="single-gallery-item">
+				                        <div class="gallery-img">
+				                            <img src="assets/images/gallery/gl-1.jpg" alt="Gallery Image">
+				                            <div class="hover-overlay">
+				                                <a href="assets/images/gallery/gl-1.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+				                            </div>
+				                        </div>
+				                    </div>
+				                    <!--=== Single Gallery Item ===-->
+				                    <div class="single-gallery-item">
+				                        <div class="gallery-img">
+				                            <img src="assets/images/gallery/gl-2.jpg" alt="Gallery Image">
+				                            <div class="hover-overlay">
+				                                <a href="assets/images/gallery/gl-2.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+				                            </div>
+				                        </div>
+				                    </div>
+				                    <!--=== Single Gallery Item ===-->
+				                    <div class="single-gallery-item">
+				                        <div class="gallery-img">
+				                            <img src="assets/images/gallery/gl-3.jpg" alt="Gallery Image">
+				                            <div class="hover-overlay">
+				                                <a href="assets/images/gallery/gl-3.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+				                            </div>
+				                        </div>
+				                    </div>
+				                    <!--=== Single Gallery Item ===-->
+				                    <div class="single-gallery-item">
+				                        <div class="gallery-img">
+				                            <img src="assets/images/gallery/gl-4.jpg" alt="Gallery Image">
+				                            <div class="hover-overlay">
+				                                <a href="assets/images/gallery/gl-4.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+				                            </div>
+				                        </div>
+				                    </div>
+				                    <!--=== Single Gallery Item ===-->
+				                    <div class="single-gallery-item">
+				                        <div class="gallery-img">
+				                            <img src="assets/images/gallery/gl-5.jpg" alt="Gallery Image">
+				                            <div class="hover-overlay">
+				                                <a href="assets/images/gallery/gl-5.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+				                            </div>
+				                        </div>
+				                    </div>
+				                    <!--=== Single Gallery Item ===-->
+				                    <div class="single-gallery-item">
+				                        <div class="gallery-img">
+				                            <img src="assets/images/gallery/gl-3.jpg" alt="Gallery Image">
+				                            <div class="hover-overlay">
+				                                <a href="assets/images/gallery/gl-3.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </section><!--====== End Gallery Section ======-->#}
+{% endblock %}
+
+{% block js %}
+	{{ parent() }}
+
+	<script>
+		document.getElementById('check-availability-btn').addEventListener('click', function () {
+var selectedType = document.getElementById('activity-type').value;
+var minPrice = document.querySelector('input[name="min_price"]').value;
+var maxPrice = document.querySelector('input[name="max_price"]').value;
+var maxGuests = document.querySelector('input[name="max_guests"]').value;
+
+var form = document.getElementById('filter-form');
+
+// Set selectedType as a query parameter
+var input = document.createElement('input');
+input.type = 'hidden';
+input.name = 'type';
+input.value = selectedType;
+form.appendChild(input);
+
+form.action = "{{ path('filter_activities') }}";
+form.method = "GET";
+form.submit();
+});
+	</script>
+{% endblock %}

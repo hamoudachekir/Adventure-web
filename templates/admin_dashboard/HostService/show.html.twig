@@ -1,0 +1,46 @@
+{% extends "base_back.html.twig" %}
+{% block content %}
+    <main id="main" class="main">
+        <div id="flash-messages">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{message}}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagetitle">
+
+                    <nav style="--bs-breadcrumb-divider: '/';">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a  href="">Home</a></li>
+                            <li class="breadcrumb-item">HostService</li>
+                            <li class="breadcrumb-item active">Show</li>
+                        </ol>
+                    </nav>
+        </div>
+        <!-- End Page Title -->
+        <section class="section">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ HostService.nom }}</h5>
+                    <h6 class="card-subtitle mb-2 text-dark-emphasis">ID :</h6>
+                    <p class="card-text">{{ HostService.id }}</p>
+                    <h6 class="card-subtitle mb-2 text-dark-emphasis">Name :</h6>
+                    <p class="card-text">{{ HostService.nom }}</p>
+                    <h6 class="card-subtitle mb-2 text-dark-emphasis">Description :</h6>
+                    <p class="card-text">{{ HostService.description }}</p>
+                    <h6 class="card-subtitle mb-2 text-dark-emphasis">CreatedAt :</h6>
+                    <p class="card-text">{{ HostService.createdAt ? HostService.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+                    <h6 class="card-subtitle mb-2 text-dark-emphasis">UpdatedAt :</h6>
+                    <p class="card-text">{{ HostService.updatedAt ? HostService.updatedAt|date('Y-m-d H:i:s') : ''}}</p>
+                    <div class="btn-group,card-text" role="group" aria-label="Basic mixed styles example">
+                        <a href="{{ path('app_HostService_edit', {'id': HostService.id}) }}" class="btn btn-outline-success">Edit</a>
+                        <a href="{{ path('app_HostService_delete', {'id': HostService.id}) }}" class="btn btn-outline-danger">Delete</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- End #main -->
+{% endblock %}

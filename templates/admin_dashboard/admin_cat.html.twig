@@ -1,0 +1,80 @@
+{% extends "admin_dashboard/base_back.html.twig" %}
+{% block content %}
+	<main id="main" class="main">
+
+		<div class="pagetitle">
+			<h1>Products</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="#">Products</a>
+					</li>
+
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Products</h5>
+					<p>List of all the Products</p>
+
+					<!-- Table with stripped rows -->
+					<table class="table datatable">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for cat in product_cats %}
+								<tr>
+									<td>{{ cat.id }}</td>
+									<td>{{ cat.name }}</td>
+									<td>
+										<a href="{{ path('app_product_cat_delete',{'id':cat.id})}}">{{ include('product_cat/_delete_form.html.twig') }}</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="10">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<!-- End Table with stripped rows -->
+
+				</div>
+			</div>
+			<div class="col-lg-6">
+
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Add a Product</h5>
+						<form id="AddForm" method="POST" enctype="multipart/form-data" novalidate>
+							{{ form_start(formCat,{'method': 'POST'}) }}
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">Name</label>
+								<div class="col-sm-10">
+									{{ form_widget(formCat.name, {'attr': {'class': 'form-control'}}) }}
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-10">
+									<button type="submit"  class="btn btn-primary">{{ button_label|default('Save') }}</button>
+								</div>
+							</div>
+							{{ form_end(formCat) }}
+						</form>
+					</div>
+				</div>	
+			</div>
+		</section>
+
+	</main>
+	<!-- End #main -->
+{% endblock %}
+

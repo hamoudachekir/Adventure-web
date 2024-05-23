@@ -1,0 +1,275 @@
+{# <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}User index{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #e2e6ea;
+        }
+        .actions a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+            transition: color 0.3s ease;
+        }
+        .actions a:hover {
+            color: #0056b3;
+        }
+        .no-records {
+            color: #6c757d;
+            font-style: italic;
+            text-align: center;
+        }
+        .create-new {
+            display: inline-block;
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .create-new:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Index</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Is Verified</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                <td class="actions">
+                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">Show</a>
+                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="no-records">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="text-align: center;">
+        <a href="{{ path('app_admin_user_new') }}" class="create-new">Create New User</a>
+    </div>
+</body>
+</html>
+ #}
+{% extends "base_back.html.twig" %}
+{% block content %}
+	<main id="main" class="main">
+		<div id="flash-messages">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{message}}
+				</div>
+			{% endfor %}
+		</div>
+		<div class="pagetitle">
+			<h1>Users</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="#">Users</a>
+					</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Users</h5>
+					<p>List of all the Users</p>
+
+					<!-- Table with stripped rows -->
+					<table class="table datatable">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Email</th>
+								<th>Is Verified</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for user in users %}
+								<tr>
+									<td>{{ user.id }}</td>
+									<td>{{ user.email }}</td>
+									<td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+									<td class="actions">
+										<a href="{{ path('app_admin_user_show', {'id': user.id}) }}">Show</a>
+										<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Edit</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="4" class="no-records">No records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<!-- End Table with stripped rows -->
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Add a user</h5>
+							<form id="AddForm" method="POST" enctype="multipart/form-data" >
+								{{ form_start(form) }}
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">Email</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.email)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">plainPassword</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.plainPassword)}}</span>
+								</div>
+
+								<div class="form-check">
+									{{ form_widget(form.isVerified) }}
+									<label class="form-check-label" for="gridCheck1">
+										is Verified
+									</label>
+								</div>
+								<div class="row mb-3">
+									<div class="col-sm-10">
+										<button type="submit" class="btn btn-primary">Add User</button>
+									</div>
+								</div>
+								{{ form_end(form) }}
+							</form>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Doughnut Chart</h5>
+
+							<!-- Doughnut Chart -->
+							<canvas id="doughnutChart" style="max-height: 400px; display: block; box-sizing: border-box; height: 400px; width: 762px;" width="953" height="500"></canvas>
+
+							<!-- End Doughnut CHart -->
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+	<!-- End #main -->
+{% endblock %}
+{% block script %}
+	{{ parent() }}
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+new Chart(document.querySelector('#doughnutChart'), {
+type: 'doughnut',
+data: {
+labels: [
+'Red', 'Blue', 'Yellow'
+],
+datasets: [
+{
+label: 'My First Dataset',
+data: [
+300, 50, 100
+],
+backgroundColor: [
+'rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'
+],
+hoverOffset: 4
+}
+]
+}
+});
+});
+
+// Hide flash messages after 2 seconds
+document.addEventListener('DOMContentLoaded', function () {
+setTimeout(function () {
+var flashMessages = document.getElementById('flash-messages');
+if (flashMessages) {
+flashMessages.innerHTML = '';
+}
+}, 3000);
+});
+
+document.addEventListener('DOMContentLoaded', function () { // Get the form element
+var form = document.getElementById('AddForm');
+
+// Add event listener for form submission
+form.addEventListener('submit', function (event) { // Show confirmation dialog
+var confirmation = confirm('Are you sure you want to submit this form?');
+
+// If user cancels, prevent form submission
+if (! confirmation) {
+event.preventDefault();
+}
+});
+});
+	</script>
+{% endblock %}

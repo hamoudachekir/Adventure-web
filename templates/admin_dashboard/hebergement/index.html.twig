@@ -1,0 +1,126 @@
+{% extends "base_back.html.twig" %}
+
+{% block content %}
+    <main id="main" class="main">
+        <div id="flash-messages">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{message}}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagetitle">
+
+            <nav style="--bs-breadcrumb-divider: '/';">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a  href="">Home</a></li>
+                    <li class="breadcrumb-item">Accomodation</li>
+                    <li class="breadcrumb-item active">List of accomodations</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End Page Title -->
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">List of accomodations</h5>
+                            <!-- Table with stripped rows -->
+                            <table class="table datatable">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Adult price</th>
+                                    <th>Youth price</th>
+                                    <th>Child price</th>
+                                    <th>Address</th>
+                                    <th>Type </th>
+                                    <th>Host Service </th>
+                                    <th>Place number </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for hebergement in hebergements %}
+                                    <tr>
+                                        <td><a href="{{ path('app_hebergement_show', {'id': hebergement.id}) }}">{{ hebergement.id }}</a></td>
+                                        <td>{{ hebergement.nom }}</td>
+                                        <td> {{ hebergement.prixAdulte }}</td>
+                                        <td>{{ hebergement.prixJeune }} </td>
+                                        <td> {{ hebergement.prixEnfant }}</td>
+                                        <td> {{ hebergement.adresse }} </td>
+                                        <td> {{ hebergement.TypeHebergement.nom ?? 'N/A'}} </td>
+                                        <td>  {{ hebergement.HostService.nom ?? 'N/A'}}</td>
+                                        <td>{{ hebergement.nbrPlace }}  </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="10">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        </section>
+    </main>
+    <!-- End #main -->
+{% endblock %}
+{% block script %}
+    {{ parent() }}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            new Chart(document.querySelector('#doughnutChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Red', 'Blue', 'Yellow'
+                    ],
+                    datasets: [
+                        {
+                            label: 'My First Dataset',
+                            data: [
+                                300, 50, 100
+                            ],
+                            backgroundColor: [
+                                'rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'
+                            ],
+                            hoverOffset: 4
+                        }
+                    ]
+                }
+            });
+        });
+
+        // Hide flash messages after 2 seconds
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                var flashMessages = document.getElementById('flash-messages');
+                if (flashMessages) {
+                    flashMessages.innerHTML = '';
+                }
+            }, 3000);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () { // Get the form element
+            var form = document.getElementById('AddForm');
+
+// Add event listener for form submission
+            form.addEventListener('submit', function (event) { // Show confirmation dialog
+                var confirmation = confirm('Are you sure you want to submit this form?');
+
+// If user cancels, prevent form submission
+                if (! confirmation) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+{% endblock %}
+

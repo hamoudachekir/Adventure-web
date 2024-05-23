@@ -1,0 +1,110 @@
+{% extends "base_back.html.twig" %}
+
+{% block content %}
+    <main id="main" class="main">
+        <div id="flash-messages">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{message}}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagetitle">
+                    <nav style="--bs-breadcrumb-divider: '/';">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a  href="">Home</a></li>
+                            <li class="breadcrumb-item">HostService</li>
+                            <li class="breadcrumb-item active">List of HostServices</li>
+                        </ol>
+                    </nav>
+        </div>
+        <!-- End Page Title -->
+
+        <section class="section">
+            <div class="card">
+                <div class="card-body">
+
+                    <h5 class="card-title">List of HostServices</h5>
+                    <!-- Table with stripped rows -->
+                    <table class="table datatable">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for HostService in HostServices %}
+                            <tr>
+
+                                <td><a href="{{ path('app_HostService_show', {'id': HostService.id}) }}">{{ HostService.id }}</a></td>
+                                <td>{{ HostService.nom }}</td>
+                                <td>{{ HostService.description }}</td>
+
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="10">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- End Table with stripped rows -->
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- End #main -->
+{% endblock %}
+{% block script %}
+    {{ parent() }}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            new Chart(document.querySelector('#doughnutChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Red', 'Blue', 'Yellow'
+                    ],
+                    datasets: [
+                        {
+                            label: 'My First Dataset',
+                            data: [
+                                300, 50, 100
+                            ],
+                            backgroundColor: [
+                                'rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'
+                            ],
+                            hoverOffset: 4
+                        }
+                    ]
+                }
+            });
+        });
+
+        // Hide flash messages after 2 seconds
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                var flashMessages = document.getElementById('flash-messages');
+                if (flashMessages) {
+                    flashMessages.innerHTML = '';
+                }
+            }, 3000);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () { // Get the form element
+            var form = document.getElementById('AddForm');
+
+// Add event listener for form submission
+            form.addEventListener('submit', function (event) { // Show confirmation dialog
+                var confirmation = confirm('Are you sure you want to submit this form?');
+
+// If user cancels, prevent form submission
+                if (! confirmation) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+{% endblock %}

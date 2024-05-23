@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ProductCat{% endblock %}
+
+{% block content %}
+    <h1>Create new ProductCat</h1>
+
+    {{ include('product_cat/_form.html.twig') }}
+
+    <a href="{{ path('app_product_cat_index') }}">back to list</a>
+{% endblock %}

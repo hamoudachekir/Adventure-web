@@ -1,0 +1,33 @@
+{% extends "base_back.html.twig" %}
+{% block title %}Edit Blog{% endblock %}
+
+{% block content %}
+    <h1>Edit Blog</h1>
+<main id="main" class="main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Edit Blog</h5>
+                    </div>
+                    <div class="card-body">
+    {{ include('blog/_form.html.twig', {'button_label': 'Update'}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <a href="{{ path('admin_blog_index') }}" class="btn btn-secondary btn-block mb-3">Back to List</a>
+                        <a href="{{ path('app_blog_delete', {'id': blog.id}) }}" class="btn btn-secondary btn-block mb-3">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

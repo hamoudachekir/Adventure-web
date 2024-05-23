@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Password Reset Email Sent{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/assets/images/reset/reset.jpg'); /* Path to your background image */
+            background-color: #f0f5f9; /* Light blue for sky */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background-color: #ffffff; /* White for clean, natural look */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .message {
+            margin-bottom: 20px;
+        }
+        .link {
+            color: #3f7cac; /* Dark blue for contrast */
+            text-decoration: underline;
+        }
+        .link:hover {
+            color: #1e4758; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Password Reset Email Sent</h1>
+
+        <div class="message">
+            <p>
+                If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+                This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+            </p>
+            <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}" class="link">try again</a>.</p>
+        </div>
+    </div>
+</body>
+</html>

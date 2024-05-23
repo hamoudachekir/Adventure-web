@@ -1,0 +1,376 @@
+{% extends 'base.html.twig' %}
+{% block title %}Activities{% endblock %}
+{% block content %}
+<!--====== Start Breadcrumb Section ======-->
+<section class="page-banner overlay pt-170 pb-220 bg_cover" style="background-image: url({{ asset('assets/images/bg/page-bg.jpg') }});">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="page-banner-content text-center text-white">
+                    <h1 class="page-title"> Activities </h1>
+                    <ul class="breadcrumb-link text-white">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active"> Activities </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!--====== End Breadcrumb Section ======-->
+
+        <!--====== Start Booking Section ======-->
+        <section class="booking-form-section pb-100">
+            <div class="container-fluid">
+                <div class="booking-form-wrapper p-r z-2">
+                    <form action="index-2.html" class="booking-form-two">
+                        <div class="form_group">
+                            <span>Check In</span>
+                            <label><i class="far fa-calendar-alt"></i></label>
+                            <input type="text" class="form_control datepicker" placeholder="Check In">
+                        </div>
+                        <div class="form_group">
+                            <span>Check Out</span>
+                            <label><i class="far fa-calendar-alt"></i></label>
+                            <input type="text" class="form_control datepicker" placeholder="Check Out">
+                        </div>
+                        <div class="form_group">
+                            <span>Guest</span>
+                            <label><i class="far fa-user-alt"></i></label>
+                            <input type="text" class="form_control" placeholder="Guest" name="text">
+                        </div>
+                        <div class="form_group">
+                            <span>Accommodations</span>
+                            <select class="wide">
+                                <option data-display="Accommodations">Accommodations</option>
+                                <option value="01">Classic Tent</option>
+                                <option value="01">Forest Camping</option>
+                                <option value="01">Small Trailer</option>
+                                <option value="01">Tree House Tent</option>
+                                <option value="01">Tent Camping</option>
+                                <option value="01">Couple Tent</option>
+                            </select>
+                        </div>
+                        <div class="form_group">
+                            <button class="booking-btn">Check Availability <i class="far fa-angle-double-right"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section><!--====== End Booking Section ======-->
+        <!--====== Start Destination Section ======-->
+        <section class="destination-section pb-100">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="single-place-item-two mb-30 wow fadeInUp">
+                            <div class="place-img">
+                                <img src="{{ asset('assets/images/place/place-10.jpg') }}" alt="Place Image">
+                                <span class="tour-count">5 Tours</span>
+                                <div class="place-content">
+                                    <div class="info text-white">
+                                        <h3 class="title mb-10">Indonesia</h3>
+                                        <p class="price"><span class="currency">$</span>225.63</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="single-place-item-two mb-30 wow fadeInUp">
+                            <div class="place-img">
+                                <img src="{{ asset('assets/images/place/place-11.jpg') }}" alt="Place Image">
+                                <span class="tour-count">5 Tours</span>
+                                <div class="place-content">
+                                    <div class="info text-white">
+                                        <h3 class="title mb-10">New York</h3>
+                                        <p class="price"><span class="currency">$</span>225.63</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="single-place-item-two mb-30 wow fadeInUp">
+                            <div class="place-img">
+                                <img src="{{ asset('assets/images/place/place-12.jpg') }}" alt="Place Image">
+                                <span class="tour-count">5 Tours</span>
+                                <div class="place-content">
+                                    <div class="info text-white">
+                                        <h3 class="title mb-10">Thailand</h3>
+                                        <p class="price"><span class="currency">$</span>225.63</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                        <div class="single-place-item-two mb-30">
+                            <div class="place-img">
+                                <img src="{{ asset('assets/images/place/place-13.jpg') }}" alt="Place Image">
+                                <span class="tour-count">5 Tours</span>
+                                <div class="place-content">
+                                    <div class="info text-white">
+                                        <h3 class="title mb-10">Nepal</h3>
+                                        <p class="price"><span class="currency">$</span>225.63</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                        <div class="single-place-item-two mb-30">
+                            <div class="place-img">
+                                <img src="{{ asset('assets/images/place/place-14.jpg') }}" alt="Place Image">
+                                <span class="tour-count">5 Tours</span>
+                                <div class="place-content">
+                                    <div class="info text-white">
+                                        <h3 class="title mb-10">Maldives</h3>
+                                        <p class="price"><span class="currency">$</span>225.63</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                        <div class="single-place-item-two mb-30">
+                            <div class="place-img">
+                                <img src="{{ asset('assets/images/place/place-15.jpg') }}" alt="Place Image">
+                                <span class="tour-count">5 Tours</span>
+                                <div class="place-content">
+                                    <div class="info text-white">
+                                        <h3 class="title mb-10">Dubai</h3>
+                                        <p class="price"><span class="currency">$</span>225.63</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                        <div class="single-place-item-two mb-30">
+                            <div class="place-img">
+                                <img src="{{ asset('assets/images/place/place-16.jpg') }}" alt="Place Image">
+                                <span class="tour-count">5 Tours</span>
+                                <div class="place-content">
+                                    <div class="info text-white">
+                                        <h3 class="title mb-10">France</h3>
+                                        <p class="price"><span class="currency">$</span>225.63</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="single-place-item-two mb-30 wow fadeInUp">
+                            <div class="place-img">
+                                <img src="{{ asset('assets/images/place/place-17.jpg') }}" alt="Place Image">
+                                <span class="tour-count">5 Tours</span>
+                                <div class="place-content">
+                                    <div class="info text-white">
+                                        <h3 class="title mb-10">Switzerland</h3>
+                                        <p class="price"><span class="currency">$</span>225.63</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="single-place-item-two mb-30 wow fadeInUp">
+                            <div class="place-img">
+                                <img src="{{ asset('assets/images/place/place-18.jpg') }}" alt="Place Image">
+                                <span class="tour-count">5 Tours</span>
+                                <div class="place-content">
+                                    <div class="info text-white">
+                                        <h3 class="title mb-10">Morocco</h3>
+                                        <p class="price"><span class="currency">$</span>225.63</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="single-place-item-two mb-30 wow fadeInUp">
+                            <div class="place-img">
+                                <img src="{{ asset('assets/images/place/place-19.jpg') }}" alt="Place Image">
+                                <span class="tour-count">5 Tours</span>
+                                <div class="place-content">
+                                    <div class="info text-white">
+                                        <h3 class="title mb-10">Hong Kong</h3>
+                                        <p class="price"><span class="currency">$</span>225.63</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="gowilds-pagination wow fadeInUp text-center mt-30">
+                            <li><a href="#"><i class="far fa-arrow-left"></i></a></li>
+                            <li><a href="#" class="active">01</a></li>
+                            <li><a href="#">02</a></li>
+                            <li><a href="#">03</a></li>
+                            <li><a href="#">04</a></li>
+                            <li><a href="#"><i class="far fa-arrow-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section><!--====== End Destination Section ======-->
+        <!--====== Start CTA Section ======-->
+        <section class="cta-bg overlay bg_cover pt-150 pb-150" style="background-image: url('{{ asset('assets/images/bg/cta-bg2.jpg') }}');">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <!--=== CTA Content Box ===-->
+                        <div class="cta-content-box text-white wow fadeInLeft">
+                            <h2 class="mb-35">Ready to Travel With Real
+                                Adventure and Enjoy Natural</h2>
+                            <a href="about.html" class="main-btn secondary-btn">Check Availability<i class="far fa-paper-plane"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-4">
+                        <!--=== Play Box ===-->
+                        <div class="play-box text-lg-end text-center wow fadeInRight">
+                            <a href="https://www.youtube.com/watch?v=ibuUmMhD2Pg" class="video-popup"><i class="fas fa-play"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!--====== End CTA Section ======-->
+        <!--====== Start Features Section ======-->
+        <section class="features-section pt-100 pb-70">
+            <div class="container">
+                <div class="row align-items-xl-center">
+                    <div class="col-xl-5 order-2 order-lg-1">
+                        <!--=== Features Image Box ===-->
+                        <div class="features-one_image-box mb-30 wow fadeInLeft">
+                            <img src="{{asset('assets/images/features/feat-9.jpg')}}" alt="Features Image">
+                        </div>
+                    </div>
+                    <div class="col-xl-7 order-1 order-lg-2">
+                        <div class="features-item-area mb-20 pl-lg-70">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!--=== Fancy Icon Box ===-->
+                                    <div class="fancy-icon-box-two mb-30 wow fadeInUp">
+                                        <div class="icon">
+                                            <i class="flaticon-camping"></i>
+                                        </div>
+                                        <div class="text">
+                                            <h3 class="title">Tent Camping</h3>
+                                            <p>Sit amet consectetur integ
+                                                tincidunt scelerie nodermen
+                                                malesuada sceleris massa</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!--=== Fancy Icon Box ===-->
+                                    <div class="fancy-icon-box-two mb-30 wow fadeInUp">
+                                        <div class="icon">
+                                            <i class="flaticon-biking-mountain"></i>
+                                        </div>
+                                        <div class="text">
+                                            <h3 class="title">Mountain Biking</h3>
+                                            <p>Sit amet consectetur integ
+                                                tincidunt scelerie nodermen
+                                                malesuada sceleris massa</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!--=== Fancy Icon Box ===-->
+                                    <div class="fancy-icon-box-two mb-30 wow fadeInUp">
+                                        <div class="icon">
+                                            <i class="flaticon-fishing-2"></i>
+                                        </div>
+                                        <div class="text">
+                                            <h3 class="title">Fishing & Boat</h3>
+                                            <p>Sit amet consectetur integ
+                                                tincidunt scelerie nodermen
+                                                malesuada sceleris massa</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!--=== Fancy Icon Box ===-->
+                                    <div class="fancy-icon-box-two mb-30 wow fadeInUp">
+                                        <div class="icon">
+                                            <i class="flaticon-caravan"></i>
+                                        </div>
+                                        <div class="text">
+                                            <h3 class="title">RV Caravan Tent</h3>
+                                            <p>Sit amet consectetur integ
+                                                tincidunt scelerie nodermen
+                                                malesuada sceleris massa</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!--====== End Features Section ======-->
+        {#<!--====== Start Gallery Section ======-->
+        <section class="gallery-section mbm-150">
+            <div class="container-fluid">
+                <div class="slider-active-5-item wow fadeInUp">
+                    <!--=== Single Gallery Item ===-->
+                    <div class="single-gallery-item">
+                        <div class="gallery-img">
+                            <img src="{{asset('assets/images/gallery/gl-1.jpg')}}" alt="Gallery Image">
+                            <div class="hover-overlay">
+                                <a href="assets/images/gallery/gl-1.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--=== Single Gallery Item ===-->
+                    <div class="single-gallery-item">
+                        <div class="gallery-img">
+                            <img src="assets/images/gallery/gl-2.jpg" alt="Gallery Image">
+                            <div class="hover-overlay">
+                                <a href="assets/images/gallery/gl-2.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--=== Single Gallery Item ===-->
+                    <div class="single-gallery-item">
+                        <div class="gallery-img">
+                            <img src="assets/images/gallery/gl-3.jpg" alt="Gallery Image">
+                            <div class="hover-overlay">
+                                <a href="assets/images/gallery/gl-3.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--=== Single Gallery Item ===-->
+                    <div class="single-gallery-item">
+                        <div class="gallery-img">
+                            <img src="assets/images/gallery/gl-4.jpg" alt="Gallery Image">
+                            <div class="hover-overlay">
+                                <a href="assets/images/gallery/gl-4.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--=== Single Gallery Item ===-->
+                    <div class="single-gallery-item">
+                        <div class="gallery-img">
+                            <img src="assets/images/gallery/gl-5.jpg" alt="Gallery Image">
+                            <div class="hover-overlay">
+                                <a href="assets/images/gallery/gl-5.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--=== Single Gallery Item ===-->
+                    <div class="single-gallery-item">
+                        <div class="gallery-img">
+                            <img src="assets/images/gallery/gl-3.jpg" alt="Gallery Image">
+                            <div class="hover-overlay">
+                                <a href="assets/images/gallery/gl-3.jpg" class="icon-btn img-popup"><i class="far fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!--====== End Gallery Section ======-->#}
+{% endblock %}

@@ -1,0 +1,38 @@
+{# <body>
+    <div class="container">
+        <form action="{{ path('app_confirm_reservation', {'id': id}) }}" method="post">
+            <button type="submit" class="button">Click to confirm</button>
+        </form>
+    </div>
+</body>
+ #}
+{% extends 'base.html.twig' %}
+{% block title %}Confirmation
+{% endblock %}
+{% block content %}
+
+<style>
+.cta{
+    width:max-content;
+}
+.form_group{
+    display:flex;
+    align-items:center;
+    flex-direction:column;
+}
+</style>
+	<section class="places-section pb-100" style="display: flex;justify-content: center;align-items: center;height: 100vh;"> 
+        <form class="booking-form-two" id="filter-form" action="{{ path('app_confirm_reservation', {'id': id}) }}" method="post">
+			<div class="form_group">
+            <span class="cta">Click the button to confirm your reservation</span>
+				<button type="submit" class="booking-btn" id="check-availability-btn" style="width: 200px;">Confirm
+					<i class="far fa-angle-double-right"></i>
+				</button>
+			</div>
+		</form>
+
+	</section>
+	
+{% endblock %}
+
+

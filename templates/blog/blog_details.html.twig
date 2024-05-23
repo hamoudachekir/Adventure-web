@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+{% block title %}Blog Details{% endblock %}
+{% block content %}
+    <!-- Start Breadcrumb Section -->
+    <section class="page-banner overlay pt-170 pb-170 bg_cover" style="background-image: url('{{ asset('assets/images/bg/36498346_2088910211166375_6004042874520338432_n.jpg') }}');">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="page-banner-content text-center text-white">
+                        <h1 class="page-title">Blog Details</h1>
+                        <ul class="breadcrumb-link text-white">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active">Blog Details</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Breadcrumb Section -->
+
+    <!-- Start Blog Details Section -->
+    <section class="blog-details-section pt-100 pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8">
+                    <!-- Blog Details Wrapper -->
+                    <div class="blog-details-wrapper pr-lg-50">
+                        <div class="blog-post mb-60 wow fadeInUp">
+                            <div class="post-thumbnail">
+                                <img src="{{ blog.image }}" alt="Post Image">
+                            </div>
+                            <div class="post-meta text-center pt-25 pb-15 mb-25">
+                                <span><i class="far fa-user"></i><a href="#">Hamouda</a></span>
+                                <span><i class="far fa-calendar-alt"></i><a href="#">{{ blog.createdAt|date('Y-m-d') }}</a></span>
+                                <span><i class="far fa-comment"></i><a href="#">Comments (05)</a></span>
+                            </div>
+                            <div class="main-post">
+                                <div class="entry-content">
+                                    <h3 class="title">{{ blog.titre }}</h3>
+                                    <p>{{ blog.contenu }}</p>
+                                </div>
+                            </div>
+                            <div class="entry-footer wow fadeInUp">
+                                <div class="social-share">
+                                    <h6>Share News :</h6>
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Comments Area -->
+                        <!-- Comments Area -->
+                        <div class="comments-area mb-60 wow fadeInUp">
+                            <h5 class="comments-title mb-40">Popular Comments</h5>
+                            <ul class="comments-list">
+                                {% for avis in blog.avis %}
+                                    <li>
+                                        <div class="comment">
+                                            <div class="comment-avatar">
+                                                <img src="{{ asset('assets/images/blog/comment-1.jpg') }}" alt="comment author">
+                                            </div>
+                                            <div class="comment-wrap">
+                                                <div class="comment-author-content">
+                                                    <span class="author-name">{{ avis.nom }}<span class="time"><i class="far fa-clock"></i>{{ avis.createdAt|date('Y-m-d H:i') }}</span></span>
+                                                    <p>{{ avis.commentaire }}</p>
+                                                    <!-- Buttons for editing, deleting, and liking -->
+                                                    <div class="comment-buttons">
+                                                        <a href="{{ path('app_avis_delete', {'id': avis.id}) }}" class="btn btn-danger btn-sm delete-comment" onclick="return confirm('Are you sure you want to delete this comment?')">Supprimer</a>
+                                                        <a href="{{ path('app_avis_like', {'id': avis.id}) }}" class="btn btn-primary btn-sm like-comment">
+                                                            <div class="emoji-list">
+                                                                <button type="button" class="btn btn-sm btn-outline-primary emoji-button" data-emoji="❤️">❤️</button>
+                                                                <!-- Add more emoji buttons as needed -->
+                                                            </div>
+                                                        </a>
+                                                        <span class="likes-count">{{ avis.likes }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+
+                        <!-- Comments Form -->
+                        <div class="comments-respond mb-30 wow fadeInUp" id="comment-respond">
+                            <h3 class="comments-heading">Leave a Comment</h3>
+                            <p>Send us your valuable feedback about our services</p>
+                            <form method="POST" class="comment-form" id="commentForm" novalidate>
+                                {{ form_start(form) }}
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            {{ form_widget(form.note, {'attr': {'class': 'form-control', 'placeholder': 'Rating from 1 to 5'}}) }}
+                                            {{ form_errors(form.note) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="error-message">{{ form_errors(form.nom) }}</span>
+                                            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Enter Name'}}) }}
+                                            {{ form_errors(form.nom) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            {{ form_widget(form.commentaire, {'attr': {'class': 'form-control', 'rows': 4, 'placeholder': 'Write Comments'}}) }}
+                                            {{ form_errors(form.commentaire) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Send Comments <i class="fas fa-angle-double-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{ form_end(form) }}
+                            </form>
+                        </div>
+                        <div id="map-search-container">
+                            <input type="text" id="map-search-input" placeholder="Rechercher par adresse" />
+                            <button id="map-search-button" onclick="searchEcoDepotAddress()">Rechercher <i class="fas fa-search icon"></i></button>
+                        </div>
+                        <!-- Map Container -->
+                        <div id="map-container" class="map-container">
+                            <div id="map" style="height: 400px;width: 100%;border-radius: 10px;margin-top: 5px;margin-left: 3px"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Blog Details Section -->
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/gh/somanchiu/Keyless-Google-Maps-API@v6.6/mapsJavaScriptAPI.js"
+            async defer></script>
+<script>
+    var mymap;
+
+    function initMap() {
+        var mapOptions = {
+            center: { lat: 33.8869, lng: 9.5375 },
+            zoom: 7
+        };
+
+        mymap = new google.maps.Map(document.getElementById('map'), mapOptions);
+    }
+    function searchEcoDepotAddress() {
+        var address = document.getElementById('map-search-input').value;
+
+        if (address.trim() !== '') {
+            var geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === 'OK') {
+                    var location = results[0].geometry.location;
+                    mymap.setCenter(location);
+                    mymap.setZoom(12);
+                } else {
+                    alert('La recherche d\'adresse a échoué : ' + status);
+                }
+            });
+        }
+    }
+</script>
+{% endblock %}

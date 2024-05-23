@@ -1,0 +1,112 @@
+
+{# {% block title %}Edit Activity{% endblock %}
+
+{% block body %}
+    <h1>Edit Activity</h1>
+
+    {{ include('activity_admin/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_activities') }}">back to list</a>
+
+   {#  {{ include('activity_admin/_delete_form.html.twig') }} 
+{% endblock %} #}
+{% extends "base_back.html.twig" %}
+{% block content %}
+<main id="main" class="main">
+
+		<div class="pagetitle">
+			<h1>Edit</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href={{path('admin_activities')}}>Activities</a>
+					</li>
+					<li class="breadcrumb-item">Edit</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+
+				
+
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Activity id {{activity.id}}</h5>
+							<form method="POST" novalidate>
+								{{ form_start(form) }}
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">Name</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.name)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">Location</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.location)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">Price</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.price)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">Duration</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.duration, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.duration)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputText" class="col-sm-2 col-form-label">Type</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.type)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.description, {'attr': {'class': 'form-control', 'style': 'height: 100px;'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.description)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputNumber" class="col-sm-2 col-form-label">Max guests</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.maxGuests, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.maxGuests)}}</span>
+								</div>
+								<div class="row mb-3">
+									<label for="inputNumber" class="col-sm-2 col-form-label">Min age</label>
+									<div class="col-sm-10">
+										{{ form_widget(form.minAge, {'attr': {'class': 'form-control'}}) }}
+									</div>
+									<span class="error-message text-danger">{{ form_errors(form.minAge)}}</span>
+								</div>
+
+								<div class="row mb-3">
+									{{ form_widget(form.images) }}
+								</div>
+
+								<div class="row mb-3">
+									<div class="col-sm-10">
+										<button type="submit" class="btn btn-primary">Edit activity</button>
+									</div>
+								</div>
+
+								{{ form_end(form) }}
+							</form>
+						</div>
+
+					</div>
+											
+
+</main>
+{% endblock %}

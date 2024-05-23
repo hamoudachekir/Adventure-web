@@ -1,0 +1,185 @@
+{% extends "base_back.html.twig" %}
+{% block content %}
+	<main id="main" class="main">
+
+		<div class="pagetitle">
+			<h1>Edit</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href={{path('admin_activities')}}>Activities</a>
+					</li>
+					<li class="breadcrumb-item">details</li>
+				</ol>
+			</nav>
+		</div>
+		<div class="card">
+
+			<div
+				class="card-body pt-3">
+				<!-- Bordered Tabs -->
+				<ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
+
+					<li class="nav-item" role="presentation">
+						<button class="nav-link {{ activeTab == 1 ? 'active' }}" data-bs-toggle="tab" data-bs-target="#profile-overview" aria-selected="{{ activeTab == 1 ? 'true':'false' }}" role="tab">Overview</button>
+					</li>
+
+					<li class="nav-item" role="presentation">
+						<button class="nav-link {{ activeTab == 2 ? 'active' }}" data-bs-toggle="tab" data-bs-target="#profile-edit" aria-selected="{{ activeTab == 2 ? 'true':'false' }}" role="tab" tabindex="-1">Edit activity</button>
+					</li>
+
+				</ul>
+				<div class="tab-content pt-2">
+
+					<div class="tab-pane fade profile-overview {{ activeTab == 1 ? 'active show' }}" id="profile-overview" role="tabpanel">
+						<div id="place-carousel" class="carousel slide" data-bs-ride="carousel" style="width: 300px; height: 200px;">
+							<div class="carousel-inner">
+								{% for image in activity.activityImages %}
+									{% set isActive = loop.first ? 'active' : '' %}
+									<div class="carousel-item {{ isActive }}">
+										<div
+											class="place-img" style="width: 300px; height: 200px;">
+											<!-- Set your desired width and height -->
+											{% if image.url starts with 'https' %}
+											<img src="{{ image.url }}" class="d-block w-100" alt="Place Image" style="object-fit: cover;">
+											{% else %}
+											<img src="{{ asset('assets/uploads/activities/' ~ image.url) }}" class="d-block w-100" alt="Place Image" style="object-fit: cover;">
+											{% endif %}
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+
+							<button class="carousel-control-prev" type="button" data-bs-target="#place-carousel" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#place-carousel" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+						</div>
+						<h5 class="card-title">Description</h5>
+						<p class="small fst-italic">{{activity.description}}</p>
+
+						<h5 class="card-title">Details</h5>
+
+						<div class="row">
+							<div class="col-lg-3 col-md-4 label ">Name</div>
+							<div class="col-lg-9 col-md-8">{{activity.name}}</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-3 col-md-4 label">Type</div>
+							<div class="col-lg-9 col-md-8">{{activity.type}}</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-3 col-md-4 label">Location</div>
+							<div class="col-lg-9 col-md-8">{{activity.location}}</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-3 col-md-4 label">Price</div>
+							<div class="col-lg-9 col-md-8">{{activity.price}}
+								DT</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-3 col-md-4 label">Max Guests</div>
+							<div class="col-lg-9 col-md-8">{{activity.maxGuests}}</div>
+						</div>
+
+						<div class="row" style="margin-bottom:20px">
+							<div class="col-lg-3 col-md-4 label">Minimum Age</div>
+							<div class="col-lg-9 col-md-8">{{activity.minAge}}</div>
+						</div>
+
+						<a href="{{ path('comment_in_activity_show', {'activity': activity.id}) }}" class="btn btn-outline-primary" role="button">Comments</a>
+						<a href="{{ path('reservations_in_activity_show', {'activity': activity.id}) }}" class="btn btn-outline-primary" role="button">Reservations</a>
+					</div>
+
+
+					<div
+						class="tab-pane fade profile-edit pt-3 {{ activeTab == 2 ? 'active show' }}" id="profile-edit" role="tabpanel">
+
+						<!-- Profile Edit Form -->
+						<form method="POST" novalidate>
+							{{ form_start(form) }}
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">Name</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+								</div>
+								<span class="error-message text-danger">{{ form_errors(form.name)}}</span>
+							</div>
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">Location</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
+								</div>
+								<span class="error-message text-danger">{{ form_errors(form.location)}}</span>
+							</div>
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">Price</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+								</div>
+								<span class="error-message text-danger">{{ form_errors(form.price)}}</span>
+							</div>
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">Duration</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.duration, {'attr': {'class': 'form-control'}}) }}
+								</div>
+								<span class="error-message text-danger">{{ form_errors(form.duration)}}</span>
+							</div>
+							<div class="row mb-3">
+								<label for="inputText" class="col-sm-2 col-form-label">Type</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+								</div>
+								<span class="error-message text-danger">{{ form_errors(form.type)}}</span>
+							</div>
+							<div class="row mb-3">
+								<label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.description, {'attr': {'class': 'form-control', 'style': 'height: 100px;'}}) }}
+								</div>
+								<span class="error-message text-danger">{{ form_errors(form.description)}}</span>
+							</div>
+							<div class="row mb-3">
+								<label for="inputNumber" class="col-sm-2 col-form-label">Max guests</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.maxGuests, {'attr': {'class': 'form-control'}}) }}
+								</div>
+								<span class="error-message text-danger">{{ form_errors(form.maxGuests)}}</span>
+							</div>
+							<div class="row mb-3">
+								<label for="inputNumber" class="col-sm-2 col-form-label">Min age</label>
+								<div class="col-sm-10">
+									{{ form_widget(form.minAge, {'attr': {'class': 'form-control'}}) }}
+								</div>
+								<span class="error-message text-danger">{{ form_errors(form.minAge)}}</span>
+							</div>
+
+							<div class="row mb-3">
+								<div class="col-sm-10">
+									<button type="submit" class="btn btn-primary">Edit activity</button>
+								</div>
+							</div>
+
+							{{ form_end(form) }}
+						</form>
+						<!-- End Profile Edit Form -->
+
+					</div>
+
+
+				</div>
+			</div>
+			<!-- End Bordered Tabs -->
+
+		</div>
+	</main>
+{% endblock %}
